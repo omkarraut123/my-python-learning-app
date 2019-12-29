@@ -1,0 +1,45 @@
+<div class="_item"><h2 class="_title">Operator Overloading</h2><div class="_content"><p>Everything in Python is an object. Each object has some special internal methods which it uses to interact with other objects. Generally, these methods follow the <code>__action__</code> naming convention. Collectively, this is termed as the <a href="https://docs.python.org/2/reference/datamodel.html" rel="nofollow noreferrer">Python Data Model</a>.</p>
+<p>You can overload <em>any</em> of these methods. This is commonly used in operator overloading in Python. Below is an example of operator overloading using Python's data model. The <code>Vector</code> class creates a simple vector of two variables. We'll add appropriate support for mathematical operations of two vectors using operator overloading.</p>
+<pre><code>class Vector(object):
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def __add__(self, v):
+        # Addition with another vector.
+        return Vector(self.x + v.x, self.y + v.y)
+
+    def __sub__(self, v):
+        # Subtraction with another vector.
+        return Vector(self.x - v.x, self.y - v.y)
+
+    def __mul__(self, s):
+        # Multiplication with a scalar.
+        return Vector(self.x * s, self.y * s)
+
+    def __div__(self, s):
+        # Division with a scalar.
+        float_s = float(s)
+        return Vector(self.x / float_s, self.y / float_s)
+
+    def __floordiv__(self, s):
+        # Division with a scalar (value floored).
+        return Vector(self.x // s, self.y // s)
+
+    def __repr__(self):
+        # Print friendly representation of Vector class. Else, it would
+        # show up like, &lt;__main__.Vector instance at 0x01DDDDC8&gt;.
+        return '&lt;Vector (%f, %f)&gt;' % (self.x, self.y, )
+
+a = Vector(3, 5)
+b = Vector(2, 7)
+
+print a + b # Output: &lt;Vector (5.000000, 12.000000)&gt;
+print b - a # Output: &lt;Vector (-1.000000, 2.000000)&gt;
+print b * 1.3 # Output: &lt;Vector (2.600000, 9.100000)&gt;
+print a // 17 # Output: &lt;Vector (0.000000, 0.000000)&gt;
+print a / 17 # Output: &lt;Vector (0.176471, 0.294118)&gt;
+</code></pre>
+<p>The above example demonstrates overloading of basic numeric operators. A comprehensive list can be found <a href="https://docs.python.org/2/reference/datamodel.html?object.__getattr__#emulating-numeric-types" rel="nofollow noreferrer">here</a>.</p>
+
+</div></div>

@@ -1,0 +1,128 @@
+
+<html>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+										<link rel='stylesheet' href='css/default.css'>
+
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+	<head>
+		<link rel='stylesheet' href='../python/css/style.css'>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+	
+	<body>
+	 
+   <div class="section" id="implementing-a-queue-in-python">
+<h1>Introduction to Trees</a></h1>
+
+<p>Now that we have studied linear data structures like
+stacks and queues and have some experience with recursion, we will look
+at a common data structure called the <strong>tree</strong>. Trees are used in many
+areas of computer science, including operating systems, graphics,
+database systems, and computer networking. Tree data structures have
+many things in common with their botanical cousins. A tree data
+structure has a root, branches, and leaves. The difference between a
+tree in nature and a tree in computer science is that a tree data
+structure has its root at the top and its leaves on the bottom.</p>
+<p>Before we begin our study of tree data structures, let’s look at a few
+common examples. Our first example of a tree is a classification tree
+from biology. <a class="reference internal" href="#fig-biotree"><span class="std std-ref">Figure 1</span></a> shows an example of the biological
+classification of some animals. From this simple example, we can learn
+about several properties of trees. The first property this example
+demonstrates is that trees are hierarchical. By hierarchical, we mean
+that trees are structured in layers with the more general things near
+the top and the more specific things near the bottom. The top of the
+hierarchy is the Kingdom, the next layer of the tree (the “children” of
+the layer above) is the Phylum, then the Class, and so on. However, no
+matter how deep we go in the classification tree, all the organisms are
+still animals.</p>
+
+<div class="figure align-center" id="id1">
+<span id="fig-biotree"></span><img alt="image" src="images/biology.png" style="width: 390.0px; height: 383.0px;" />
+<p class="caption"><span class="caption-text">Figure 1: Taxonomy of Some Common Animals Shown as a Tree</span></p>
+</div>
+
+<p>Notice that you can start at the top of the tree and follow a path made
+of circles and arrows all the way to the bottom. At each level of the
+tree we might ask ourselves a question and then follow the path that
+agrees with our answer. For example we might ask, “Is this animal a
+Chordate or an Arthropod?” If the answer is “Chordate” then we follow
+that path and ask, “Is this Chordate a Mammal?” If not, we are stuck
+(but only in this simplified example). When we are at the Mammal level
+we ask, “Is this Mammal a Primate or a Carnivore?” We can keep following
+paths until we get to the very bottom of the tree where we have the
+common name.</p>
+<p>A second property of trees is that all of the children of one node are
+independent of the children of another node. For example, the Genus
+Felis has the children Domestica and Leo. The Genus Musca also has a
+child named Domestica, but it is a different node and is independent of
+the Domestica child of Felis. This means that we can change the node
+that is the child of Musca without affecting the child of Felis.</p>
+<p>A third property is that each leaf node is unique. We can specify a path
+from the root of the tree to a leaf that uniquely identifies each
+species in the animal kingdom; for example, Animalia-->Chordate-->Mammal-->Carnivora-->Felidae-->Felis-->Domestica.</p>
+<p>Another example of a tree structure that you probably use every day is a
+file system. In a file system, directories, or folders, are structured
+as a tree. <a class="reference internal" href="#fig-filetree"><span class="std std-ref">Figure 2</span></a> illustrates a small part of a Unix file
+system hierarchy.</p>
+
+<div class="figure align-center" id="id2">
+<span id="fig-filetree"></span><img alt="image" src="images/directory.png" style="width: 687.0px; height: 126.0px;" /></a>
+<p class="caption"><span class="caption-text">Figure 2: A Small Part of the Unix File System Hierarchy</span></p>
+</div>
+
+<p>The file system tree has much in common with the biological
+classification tree. You can follow a path from the root to any
+directory. That path will uniquely identify that subdirectory (and all
+the files in it). Another important property of trees, derived from
+their hierarchical nature, is that you can move entire sections of a
+tree (called a <strong>subtree</strong>) to a different position in the tree without
+affecting the lower levels of the hierarchy. For example, we could take
+the entire subtree staring with /etc/, detach etc/ from the root and
+reattach it under usr/. This would change the unique pathname to httpd
+from /etc/httpd to /usr/etc/httpd, but would not affect the contents or
+any children of the httpd directory.</p>
+
+<div>			
+<a id='fbtn2' href='Trees Terminology.html'>Next</a>
+
+</div>
+	</body>
+	<!--JAVASCRIPT-->
+<script type="text/javascript">
+function setHeight(fieldId){
+    document.getElementById(fieldId).style.height = document.getElementById(fieldId).scrollHeight+'px';
+}
+setHeight('activecode');
+setHeight('stack_1ac')
+</script>
+	<script src="../clipboard.min.js"></script>
+		<script src="../highlight.pack.js"></script>
+		<script>hljs.initHighlightingOnLoad();</script>
+		<script>
+			var clipboard = new Clipboard('.btn');
+
+			clipboard.on('success', function(e) {
+				console.log(e);
+			});
+
+			clipboard.on('error', function(e) {
+				console.log(e);
+			});
+			function myFunction1() {
+				document.getElementById("btn1").innerHTML = "Copied";
+			}
+			function myFunction2() {
+				document.getElementById("btn2").innerHTML = "Copied";
+			}
+	</script>
+	
+</html>

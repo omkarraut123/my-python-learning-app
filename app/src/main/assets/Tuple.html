@@ -1,0 +1,211 @@
+<!doctype html>
+<html>
+<body>
+<div class="_description"><p>Parentheses are only needed for empty tuples or when used in a function call.</p>
+<p>A tuple is a sequence of values. The values can be any type, and they are indexed by integers, so in that respect tuples are a lot like lists. The important difference is that tuples are immutable and are hashable, so they can be used in sets and maps</p>
+
+</div><div class="_item"><h2 class="_title">Indexing Tuples</h2><div class="_content"><pre><code>x = (1, 2, 3)
+x[0]  # 1
+x[1]  # 2
+x[2]  # 3
+x[3]  # IndexError: tuple index out of range
+</code></pre>
+<p>Indexing with negative numbers will start from the last element as -1:</p>
+<pre><code>x[-1] # 3
+x[-2] # 2
+x[-3] # 1
+x[-4] # IndexError: tuple index out of range
+</code></pre>
+<p>Indexing a range of elements</p>
+<pre><code>print(x[:-1])   # (1, 2)
+print(x[-1:])   # (3,)
+print(x[1:3])   # (2, 3)
+</code></pre>
+
+</div><h2 class="_title">Tuples are immutable</h2><div class="_content"><p>One of the main differences between <code>list</code>s and <code>tuple</code>s in Python is that tuples are immutable, that is, one cannot add or modify items once the tuple is initialized. For example:</p>
+<pre><code>&gt;&gt;&gt; t = (1, 4, 9)
+&gt;&gt;&gt; t[0] = 2
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+TypeError: 'tuple' object does not support item assignment
+</code></pre>
+<p>Similarly, tuples don't have <code>.append</code> and <code>.extend</code> methods as <code>list</code> does. Using <code>+=</code> is possible, but it changes the binding of the variable, and not the tuple itself:</p>
+<pre><code>&gt;&gt;&gt; t = (1, 2)
+&gt;&gt;&gt; q = t
+&gt;&gt;&gt; t += (3, 4)
+&gt;&gt;&gt; t
+(1, 2, 3, 4)
+&gt;&gt;&gt; q
+(1, 2)
+</code></pre>
+<p>Be careful when placing mutable objects, such as <code>lists</code>, inside tuples. This may lead to very confusing outcomes when changing them.
+For example:</p>
+<pre><code>&gt;&gt;&gt; t = (1, 2, 3, [1, 2, 3])
+(1, 2, 3, [1, 2, 3])
+&gt;&gt;&gt; t[3] += [4, 5]
+</code></pre>
+<p>Will <strong><em>both</em></strong> raise an error and change the contents of the list within the tuple:</p>
+<pre><code>TypeError: 'tuple' object does not support item assignment
+&gt;&gt;&gt; t
+(1, 2, 3, [1, 2, 3, 4, 5])
+</code></pre>
+<p>You can use the <code>+=</code> operator to &quot;append&quot; to a tuple - this works by creating a new tuple with the new element you &quot;appended&quot; and assign it to its current variable; the old tuple is not changed, but replaced!</p>
+<p>This avoids converting to and from a list, but this is slow and is a bad practice, especially if you're going to append multiple times.</p>
+
+</div><h2 class="_title">Tuple Are Element-wise Hashable and Equatable</h2><div class="_content"><pre><code>hash( (1, 2) )  # ok
+hash( ([], {&quot;hello&quot;})  # not ok, since lists and sets are not hashabe
+</code></pre>
+<p>Thus a tuple can be put inside a <code>set</code> or as a key in a <code>dict</code> only if each of its elements can.</p>
+<pre><code>{ (1, 2) } #  ok
+{ ([], {&quot;hello&quot;}) ) # not ok
+</code></pre>
+
+</div><h2 class="_title">Tuple</h2><div class="_content"><p>Syntactically, a tuple is a comma-separated list of values:</p>
+<pre><code>t = 'a', 'b', 'c', 'd', 'e'
+</code></pre>
+<p>Although not necessary, it is common to enclose tuples in parentheses:</p>
+<pre><code>t = ('a', 'b', 'c', 'd', 'e')
+</code></pre>
+<p>Create an empty tuple with parentheses:</p>
+<pre><code>t0 = ()
+type(t0)            # &lt;type 'tuple'&gt;
+</code></pre>
+<p>To create a tuple with a single element, you have to include a final comma:</p>
+<pre><code>t1 = 'a',
+type(t1)              # &lt;type 'tuple'&gt;
+</code></pre>
+<p>Note that a single value in parentheses is not a tuple:</p>
+<pre><code>t2 = ('a')
+type(t2)              # &lt;type 'str'&gt;
+</code></pre>
+<p>To create a singleton tuple it is necessary to have a trailing comma.</p>
+<pre><code>t2 = ('a',)
+type(t2)              # &lt;type 'tuple'&gt;
+</code></pre>
+<p>Note that for singleton tuples it's recommended (see <a href="https://www.python.org/dev/peps/pep-0008/#when-to-use-trailing-commas" rel="nofollow noreferrer">PEP8 on trailing commas</a>) to use parentheses. Also, no white space after the trailing comma (see <a href="https://www.python.org/dev/peps/pep-0008/#whitespace-in-expressions-and-statements" rel="nofollow noreferrer">PEP8 on whitespaces</a>)</p>
+<pre><code>t2 = ('a',)           # PEP8-compliant
+t2 = 'a',             # this notation is not recommended by PEP8
+t2 = ('a', )          # this notation is not recommended by PEP8
+</code></pre>
+<p>Another way to create a tuple is the built-in function <code>tuple</code>.</p>
+<pre><code>t = tuple('lupins')
+print(t)              # ('l', 'u', 'p', 'i', 'n', 's')
+t = tuple(range(3))
+print(t)              # (0, 1, 2)
+</code></pre>
+<p>These examples are based on material from the book <a href="http://greenteapress.com/thinkpython/html/index.html" rel="nofollow noreferrer"><strong>Think Python</strong> by Allen B. Downey</a>.</p>
+
+</div><h2 class="_title">Packing and Unpacking Tuples</h2><div class="_content"><p>Tuples in Python are values separated by commas. Enclosing parentheses for inputting tuples are optional, so the two assignments</p>
+<pre><code>a = 1, 2, 3   # a is the tuple (1, 2, 3)
+</code></pre>
+<p>and</p>
+<pre><code>a = (1, 2, 3) # a is the tuple (1, 2, 3)
+</code></pre>
+<p>are equivalent.
+The assignment <code>a = 1, 2, 3</code> is also called <em>packing</em> because it packs values together in a tuple.</p>
+<p>Note that a one-value tuple is also a tuple. To tell Python that a variable is a tuple and not a single value you can use a trailing comma</p>
+<pre><code>a = 1  # a is the value 1
+a = 1, # a is the tuple (1,)
+</code></pre>
+<p>A comma is needed also if you use parentheses</p>
+<pre><code>a = (1,) # a is the tuple (1,)
+a = (1)  # a is the value 1 and not a tuple
+</code></pre>
+<p>To unpack values from a tuple and do multiple assignments use</p>
+<pre><code># unpacking AKA multiple assignment
+x, y, z = (1, 2, 3) 
+# x == 1
+# y == 2
+# z == 3
+</code></pre>
+<p>The symbol <code>_</code> can be used as a disposable variable name if one only needs some elements of a tuple, acting as a placeholder:</p>
+<pre><code>a = 1, 2, 3, 4
+_, x, y, _ = a
+# x == 2
+# y == 3
+</code></pre>
+<p>Single element tuples:</p>
+<pre><code>x, = 1,  # x is the value 1
+x  = 1,  # x is the tuple (1,)
+</code></pre>
+<p>In Python 3 a target variable with a <code>*</code> prefix can be used as a <em><a href="https://www.python.org/dev/peps/pep-3132/" rel="nofollow noreferrer">catch-all</a></em> variable (see <a class='doc-link' href="http://stackoverflow.com/documentation/python/809/compatibility-between-python-3-and-python-2/2845/unpacking-iterables">Unpacking Iterables</a> ):</p>
+<div class='version-specific' data-version-json='[{&quot;Type&quot;:&quot;GreaterThanOrEqual&quot;,&quot;GroupName&quot;:&quot;Python 3.x&quot;,&quot;VersionName&quot;:&quot;3.0&quot;}]'><span class='version-name'>Python 3.x</span><span class='version-row'><span class='version'><span class='version-constraint version-kind-greaterthanorequal'>3.0</span></span></span><div class='version-specific-content'>
+<pre><code>first, *more, last = (1, 2, 3, 4, 5)
+# first == 1
+# more == [2, 3, 4]
+# last == 5
+</code></pre>
+</div></div>
+
+</div><h2 class="_title">Reversing Elements</h2><div class="_content"><p>Reverse elements within a tuple</p>
+<pre><code>colors = &quot;red&quot;, &quot;green&quot;, &quot;blue&quot;
+rev = colors[::-1]
+# rev: (&quot;blue&quot;, &quot;green&quot;, &quot;red&quot;)
+colors = rev
+# colors: (&quot;blue&quot;, &quot;green&quot;, &quot;red&quot;)
+</code></pre>
+<p>Or using reversed (reversed gives an iterable which is converted to a tuple):</p>
+<pre><code>rev = tuple(reversed(colors))
+# rev: (&quot;blue&quot;, &quot;green&quot;, &quot;red&quot;)
+colors = rev
+# colors: (&quot;blue&quot;, &quot;green&quot;, &quot;red&quot;)
+</code></pre>
+
+</div><h2 class="_title">Built-in Tuple Functions</h2><div class="_content"><p>Tuples support the following build-in functions</p>
+<h1>Comparison</h1>
+<p>If elements are of the same type, python performs the comparison and returns the result. If elements are different types, it checks whether they are numbers.</p>
+<ul>
+<li>If numbers, perform comparison.</li>
+<li>If either element is a number, then the other element is returned.</li>
+<li>Otherwise, types are sorted alphabetically .</li>
+</ul>
+<p>If we reached the end of one of the lists, the longer list is &quot;larger.&quot; If both list are same it returns 0.</p>
+<pre><code>tuple1 = ('a', 'b', 'c', 'd', 'e')
+tuple2 = ('1','2','3')
+tuple3 = ('a', 'b', 'c', 'd', 'e')
+
+cmp(tuple1, tuple2)
+Out: 1
+
+cmp(tuple2, tuple1)
+Out: -1
+
+cmp(tuple1, tuple3)
+Out: 0
+</code></pre>
+<h1>Tuple Length</h1>
+<p>The function <code>len</code> returns the total length of the tuple</p>
+<pre><code>len(tuple1)
+Out: 5
+</code></pre>
+<h1>Max of a tuple</h1>
+<p>The function <code>max</code> returns item from the tuple with the max value</p>
+<pre><code>max(tuple1)
+Out: 'e'
+
+max(tuple2)
+Out: '3'
+</code></pre>
+<h1>Min of a tuple</h1>
+<p>The function min returns the item from the tuple with the min value</p>
+<pre><code>min(tuple1)
+Out: 'a'
+
+min(tuple2)
+Out: '1'
+</code></pre>
+<h1>Convert a list into tuple</h1>
+<p>The built-in function <code>tuple</code> converts a list into a tuple.</p>
+<pre><code>list = [1,2,3,4,5]
+tuple(list)
+Out: (1, 2, 3, 4, 5)
+</code></pre>
+<h1>Tuple concatenation</h1>
+<p>Use <code>+</code> to concatenate two tuples</p>
+<pre><code>tuple1 + tuple2
+Out: ('a', 'b', 'c', 'd', 'e', '1', '2', '3')
+</code></pre>
+
+</div></div>
+<html>
+<body>

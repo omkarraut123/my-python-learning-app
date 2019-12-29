@@ -1,0 +1,358 @@
+<!doctype html>
+<html>
+<body>
+<div class="_item"><h2 class="_title"><span style="color: #993366;">Catching Exceptions</span></h2><div class="_content"><p>Use <code>try...except:</code> to catch exceptions. You should specify as precise an exception as you can:</p>
+<pre><code>try:
+    x = 5 / 0
+except ZeroDivisionError as e:
+    # `e` is the exception object
+    print(&quot;Got a divide by zero! The exception was:&quot;, e)
+    # handle exceptional case
+    x = 0  
+finally:
+    print &quot;The END&quot;
+    # it runs no matter what execute.
+</code></pre>
+<p>The exception class that is specified - in this case, <code>ZeroDivisionError</code> - catches any exception that is of that class or of any subclass of that exception.</p>
+<p>For example, <code>ZeroDivisionError</code> is a subclass of <code>ArithmeticError</code>:</p>
+<pre><code>&gt;&gt;&gt; ZeroDivisionError.__bases__
+(&lt;class 'ArithmeticError'&gt;,)
+</code></pre>
+<p>And so, the following will still catch the <code>ZeroDivisionError</code>:</p>
+<pre><code>try:
+    5 / 0
+except ArithmeticError:
+    print(&quot;Got arithmetic error&quot;)
+</code></pre>
+
+</div><h2 class="_title"><span style="color: #993366;">Raising Exceptions</span></h2><div class="_content"><p>If your code encounters a condition it doesn't know how to handle, such as an incorrect parameter, it should raise the appropriate exception.</p>
+<pre><code>def even_the_odds(odds):
+    if odds % 2 != 1:
+        raise ValueError(&quot;Did not get an odd number&quot;)
+    
+    return odds + 1
+</code></pre>
+
+</div><h2 class="_title"><span style="color: #993366;">Running clean-up code with finally</span></h2><div class="_content"><p>Sometimes, you may want something to occur regardless of whatever exception happened, for example, if you have to clean up some resources.</p>
+<p>The <code>finally</code> block of a <code>try</code> clause will happen regardless of whether any exceptions were raised.</p>
+<pre><code>resource = allocate_some_expensive_resource()
+try:
+    do_stuff(resource)
+except SomeException as e:
+    log_error(e)
+    raise  # re-raise the error
+finally:
+    free_expensive_resource(resource)
+</code></pre>
+<p>This pattern is often better handled with context managers (using <a class='doc-link' href="http://stackoverflow.com/documentation/python/928/context-managers-with-statement">the <code>with</code> statement</a>).</p>
+
+</div><h2 class="_title"><span style="color: #993366;">Re-raising exceptions</span></h2><div class="_content"><p>Sometimes you want to catch an exception just to inspect it, e.g. for logging purposes. After the inspection, you want the exception to continue propagating as it did before.</p>
+<p>In this case, simply use the <code>raise</code> statement with no parameters.</p>
+<pre><code>try:
+    5 / 0
+except ZeroDivisionError:
+    print(&quot;Got an error&quot;)
+    raise
+</code></pre>
+<p>Keep in mind, though, that someone further up in the caller stack can still catch the exception and handle it somehow.  The done output could be a nuisance in this case because it will happen in any case (caught or not caught).
+So it might be a better idea to raise a different exception, containing your comment about the situation as well as the original exception:</p>
+<pre><code>try:
+    5 / 0
+except ZeroDivisionError as e:
+    raise ZeroDivisionError(&quot;Got an error&quot;, e)
+</code></pre>
+<p>But this has the drawback of reducing the exception trace to exactly this <code>raise</code> while the <code>raise</code> without argument retains the original exception trace.</p>
+<p>In Python 3 you can keep the original stack by using the <code>raise</code>-<code>from</code> syntax:</p>
+<pre><code>    raise ZeroDivisionError(&quot;Got an error&quot;) from e
+</code></pre>
+
+</div><h2 class="_title"><span style="color: #993366;">Chain exceptions with raise from</span></h2><div class="_content"><p>In the process of handling an exception, you may want to raise another exception. For example, if you get an <code>IOError</code> while reading from a file, you may want to raise an application-specific error to present to the users of your library, instead.</p>
+<div class='version-specific' data-version-json='[{&quot;Type&quot;:&quot;GreaterThanOrEqual&quot;,&quot;GroupName&quot;:&quot;Python 3.x&quot;,&quot;VersionName&quot;:&quot;3.0&quot;}]'><span class='version-name'>Python 3.x</span><span class='version-row'><span class='version'><span class='version-constraint version-kind-greaterthanorequal'>3.0</span></span></span><div class='version-specific-content'>
+<p>You can chain exceptions to show how the handling of exceptions proceeded:</p>
+<pre><code>&gt;&gt;&gt; try:
+    5 / 0
+except ZeroDivisionError as e:
+    raise ValueError(&quot;Division failed&quot;) from e
+
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 2, in &lt;module&gt;
+ZeroDivisionError: division by zero
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 4, in &lt;module&gt;
+ValueError: Division failed
+</code></pre>
+</div></div>
+
+</div><h2 class="_title"><span style="color: #993366;">Exception Hierarchy</span></h2><div class="_content"><p>Exception handling occurs based on an exception hierarchy, determined by the inheritance structure of the exception classes.</p>
+<p>For example, <code>IOError</code> and <code>OSError</code> are both subclasses of <code>EnvironmentError</code>. Code that catches an <code>IOError</code> will not catch an <code>OSError</code>. However, code that catches an <code>EnvironmentError</code> will catch both <code>IOError</code>s and <code>OSError</code>s.</p>
+<p>The hierarchy of built-in exceptions:</p>
+<div class='version-specific' data-version-json='[{&quot;Type&quot;:&quot;GreaterThanOrEqual&quot;,&quot;GroupName&quot;:&quot;Python 2.x&quot;,&quot;VersionName&quot;:&quot;2.3&quot;}]'><span class='version-name'>Python 2.x</span><span class='version-row'><span class='version'><span class='version-constraint version-kind-greaterthanorequal'>2.3</span></span></span><div class='version-specific-content'>
+<pre><code>BaseException
+ +-- SystemExit
+ +-- KeyboardInterrupt
+ +-- GeneratorExit
+ +-- Exception
+      +-- StopIteration
+      +-- StandardError
+      |    +-- BufferError
+      |    +-- ArithmeticError
+      |    |    +-- FloatingPointError
+      |    |    +-- OverflowError
+      |    |    +-- ZeroDivisionError
+      |    +-- AssertionError
+      |    +-- AttributeError
+      |    +-- EnvironmentError
+      |    |    +-- IOError
+      |    |    +-- OSError
+      |    |         +-- WindowsError (Windows)
+      |    |         +-- VMSError (VMS)
+      |    +-- EOFError
+      |    +-- ImportError
+      |    +-- LookupError
+      |    |    +-- IndexError
+      |    |    +-- KeyError
+      |    +-- MemoryError
+      |    +-- NameError
+      |    |    +-- UnboundLocalError
+      |    +-- ReferenceError
+      |    +-- RuntimeError
+      |    |    +-- NotImplementedError
+      |    +-- SyntaxError
+      |    |    +-- IndentationError
+      |    |         +-- TabError
+      |    +-- SystemError
+      |    +-- TypeError
+      |    +-- ValueError
+      |         +-- UnicodeError
+      |              +-- UnicodeDecodeError
+      |              +-- UnicodeEncodeError
+      |              +-- UnicodeTranslateError
+      +-- Warning
+           +-- DeprecationWarning
+           +-- PendingDeprecationWarning
+           +-- RuntimeWarning
+           +-- SyntaxWarning
+           +-- UserWarning
+           +-- FutureWarning
+       +-- ImportWarning
+       +-- UnicodeWarning
+       +-- BytesWarning
+</code></pre>
+</div></div>
+<div class='version-specific' data-version-json='[{&quot;Type&quot;:&quot;GreaterThanOrEqual&quot;,&quot;GroupName&quot;:&quot;Python 3.x&quot;,&quot;VersionName&quot;:&quot;3.0&quot;}]'><span class='version-name'>Python 3.x</span><span class='version-row'><span class='version'><span class='version-constraint version-kind-greaterthanorequal'>3.0</span></span></span><div class='version-specific-content'>
+<pre><code>BaseException
+ +-- SystemExit
+ +-- KeyboardInterrupt
+ +-- GeneratorExit
+ +-- Exception
+      +-- StopIteration
+      +-- StopAsyncIteration
+      +-- ArithmeticError
+      |    +-- FloatingPointError
+      |    +-- OverflowError
+      |    +-- ZeroDivisionError
+      +-- AssertionError
+      +-- AttributeError
+      +-- BufferError
+      +-- EOFError
+      +-- ImportError
+      +-- LookupError
+      |    +-- IndexError
+      |    +-- KeyError
+      +-- MemoryError
+      +-- NameError
+      |    +-- UnboundLocalError
+      +-- OSError
+      |    +-- BlockingIOError
+      |    +-- ChildProcessError
+      |    +-- ConnectionError
+      |    |    +-- BrokenPipeError
+      |    |    +-- ConnectionAbortedError
+      |    |    +-- ConnectionRefusedError
+      |    |    +-- ConnectionResetError
+      |    +-- FileExistsError
+      |    +-- FileNotFoundError
+      |    +-- InterruptedError
+      |    +-- IsADirectoryError
+      |    +-- NotADirectoryError
+      |    +-- PermissionError
+      |    +-- ProcessLookupError
+      |    +-- TimeoutError
+      +-- ReferenceError
+      +-- RuntimeError
+      |    +-- NotImplementedError
+      |    +-- RecursionError
+      +-- SyntaxError
+      |    +-- IndentationError
+      |         +-- TabError
+      +-- SystemError
+      +-- TypeError
+      +-- ValueError
+      |    +-- UnicodeError
+      |         +-- UnicodeDecodeError
+      |         +-- UnicodeEncodeError
+      |         +-- UnicodeTranslateError
+      +-- Warning
+           +-- DeprecationWarning
+           +-- PendingDeprecationWarning
+           +-- RuntimeWarning
+           +-- SyntaxWarning
+           +-- UserWarning
+           +-- FutureWarning
+           +-- ImportWarning
+           +-- UnicodeWarning
+           +-- BytesWarning
+           +-- ResourceWarning
+</code></pre>
+</div></div>
+
+</div><h2 class="_title"><span style="color: #993366;">Exceptions are Objects too</span></h2><div class="_content"><p>Exceptions are just regular Python objects that inherit from the built-in <code>BaseException</code>. A Python script can use the <code>raise</code> statement to interrupt execution, causing Python to print a stack trace of the call stack at that point and a representation of the exception instance. For example:</p>
+<pre><code>&gt;&gt;&gt; def failing_function():
+...     raise ValueError('Example error!')
+&gt;&gt;&gt; failing_function()
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+  File &quot;&lt;stdin&gt;&quot;, line 2, in failing_function
+ValueError: Example error!
+</code></pre>
+<p>which says that a <code>ValueError</code> with the message <code>'Example error!'</code> was raised by our <code>failing_function()</code>, which was executed in the interpreter.</p>
+<p>Calling code can choose to handle any and all types of exception that a call can raise:</p>
+<pre><code>&gt;&gt;&gt; try:
+...     failing_function()
+... except ValueError:
+...     print('Handled the error')
+Handled the error
+</code></pre>
+<p>You can get hold of the exception objects by assigning them in the <code>except...</code> part of the exception handling code:</p>
+<pre><code>&gt;&gt;&gt; try:
+...     failing_function()
+... except ValueError as e:
+...     print('Caught exception', repr(e))
+Caught exception ValueError('Example error!',)
+</code></pre>
+<p>A complete list of built-in Python exceptions along with their descriptions can be found in the Python Documentation: <a href="https://docs.python.org/3.5/library/exceptions.html" rel="nofollow noreferrer">https://docs.python.org/3.5/library/exceptions.html</a>. And here is the full list arranged hierarchically: <a class='doc-link' href="http://stackoverflow.com/documentation/python/1788/exceptions/5535/exception-hierarchy">Exception Hierarchy</a>.</p>
+
+</div><h2 class="_title"><span style="color: #993366;">Creating custom exception types</span></h2><div class="_content"><p>Create a class inheriting from <code>Exception</code>:</p>
+<pre><code>class FooException(Exception):
+    pass
+try:
+    raise FooException(&quot;insert description here&quot;)
+except FooException:
+    print(&quot;A FooException was raised.&quot;)
+</code></pre>
+<p>or another exception type:</p>
+<pre><code>class NegativeError(ValueError):
+      pass
+
+def foo(x):
+    # function that only accepts positive values of x
+    if x &lt; 0:
+        raise NegativeError(&quot;Cannot process negative numbers&quot;)
+    ...  # rest of function body
+try:
+    result = foo(int(input(&quot;Enter a positive integer: &quot;)))  # raw_input in Python 2.x
+except NegativeError:
+    print(&quot;You entered a negative number!&quot;)
+else:
+    print(&quot;The result was &quot; + str(result))
+</code></pre>
+
+</div><h2 class="_title"><span style="color: #993366;">Do not catch everything!</span></h2><div class="_content"><p>While it's often tempting to catch every <code>Exception</code>:</p>
+<pre><code>try:
+    very_difficult_function()
+except Exception:
+    # log / try to reconnect / exit gratiously
+finally:
+    print &quot;The END&quot;
+    # it runs no matter what execute.
+</code></pre>
+<p>Or even everything (that includes <code>BaseException</code> and all its children including <code>Exception</code>):</p>
+<pre><code>try:
+    even_more_difficult_function()
+except:
+    pass  # do whatever needed
+</code></pre>
+<p>In most cases it's bad practice. It might catch more than intended,  such as <code>SystemExit</code>, <code>KeyboardInterrupt</code> and <code>MemoryError</code> - each of which should generally be handled differently than usual system or logic errors. It also means there's no clear understanding for what the internal code may do wrong and how to recover properly from that condition. If you're catching every error, you wont know what error occurred or how to fix it.</p>
+<p>This is more commonly referred to  as 'bug masking' and should be avoided. Let your program crash instead of silently failing or even  worse, failing at deeper level of execution. (Imagine it's a  transactional system)</p>
+<p>Usually these constructs are used at the very outer level of the program, and will log the details of the error so that the bug can be fixed, or the error can be handled more specifically.</p>
+
+</div><h2 class="_title">Catching multiple exceptions</h2><div class="_content"><p>There are a few ways to <a href="https://docs.python.org/3/tutorial/errors.html#handling-exceptions" rel="nofollow noreferrer">catch multiple exceptions</a>.</p>
+<p>The first is by creating a tuple of the exception types you wish to catch and handle in the same manner. This example will cause the code to ignore <code>KeyError</code> and <code>AttributeError</code> exceptions.</p>
+<pre><code>try:
+    d = {}
+    a = d[1]
+    b = d.non_existing_field
+except (KeyError, AttributeError) as e:
+    print(&quot;A KeyError or an AttributeError exception has been caught.&quot;)
+</code></pre>
+<hr />
+<p>If you wish to handle different exceptions in different ways, you can provide a separate exception block for each type. In this example, we still catch the <code>KeyError</code> and <code>AttributeError</code>, but handle the exceptions in different manners.</p>
+<pre><code>try:
+    d = {}
+    a = d[1]
+    b = d.non_existing_field
+except KeyError as e:
+    print(&quot;A KeyError has occurred. Exception message:&quot;, e)
+except AttributeError as e:
+    print(&quot;An AttributeError has occurred. Exception message:&quot;, e)
+</code></pre>
+
+</div><h2 class="_title"><span style="color: #993366;">Practical examples of exception handling</span></h2><div class="_content"><h1>User input</h1>
+<p>Imagine you want a user to enter a number via <code>input</code>. You want to ensure that the input is a number. You can use <code>try</code>/<code>except</code> for this:</p>
+<div class='version-specific' data-version-json='[{&quot;Type&quot;:&quot;GreaterThanOrEqual&quot;,&quot;GroupName&quot;:&quot;Python 3.x&quot;,&quot;VersionName&quot;:&quot;3.0&quot;}]'><span class='version-name'>Python 3.x</span><span class='version-row'><span class='version'><span class='version-constraint version-kind-greaterthanorequal'>3.0</span></span></span><div class='version-specific-content'>
+<pre><code>while True:
+    try:
+        nb = int(input('Enter a number: '))
+        break
+    except ValueError:
+        print('This is not a number, try again.')
+</code></pre>
+</div></div>
+<p>Note: Python 2.x would use <code>raw_input</code> instead; the function <code>input</code> exists in Python 2.x but has different semantics. In the above example, <code>input</code> would also accept expressions such as <code>2 + 2</code> which evaluate to a number.</p>
+<p>If the input could not be converted to an integer, a <code>ValueError</code> is raised. You can catch it with <code>except</code>. If no exception is raised, <code>break</code> jumps out of the loop. After the loop, <code>nb</code> contains an integer.</p>
+<h1>Dictionaries</h1>
+<p>Imagine you are iterating over a list of consecutive integers, like <code>range(n)</code>, and you have a list of dictionaries <code>d</code> that contains information about things to do when you encounter some particular integers, say <em>skip the <code>d[i]</code> next ones</em>.</p>
+<pre><code>d = [{7: 3}, {25: 9}, {38: 5}]
+
+for i in range(len(d)):
+    do_stuff(i)
+    try:
+       dic = d[i]
+       i += dic[i]
+    except KeyError:
+       i += 1
+</code></pre>
+<p>A <code>KeyError</code> will be raised when you try to get a value from a dictionary for a key that doesn’t exist.</p>
+
+</div><h2 class="_title">Else</h2><div class="_content"><p>Code in an else block will only be run if no exceptions were raised by the code in the <code>try</code> block. This is useful if you have some code you don’t want to run if an exception is thrown, but you don’t want exceptions thrown by that code to be caught.</p>
+<p>For example:</p>
+<pre><code>try:
+    data = {1: 'one', 2: 'two'}
+    print(data[1])
+except KeyError as e:
+    print('key not found')
+else:
+    raise ValueError()
+# Output: one
+# Output: ValueError
+</code></pre>
+<p>Note that this kind of <code>else:</code> cannot be combined with an <code>if</code> starting the else-clause to an <code>elif</code>.  If you have a following <code>if</code> it needs to stay indented below that <code>else:</code>:</p>
+<pre><code>try:
+    ...
+except ...:
+    ...
+else:
+    if ...:
+        ...
+    elif ...:
+        ...
+    else:
+        ...
+</code></pre>
+
+</div></div>
+</body>
+</html>

@@ -1,0 +1,87 @@
+
+<html>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+										<link rel='stylesheet' href='css/default.css'>
+
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+	<head>
+		<link rel='stylesheet' href='../python/css/style.css'>
+				<link rel='stylesheet' href='../python/css/default.css'>
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+	
+	<body>
+	 
+   <div class="section" id="implementing-a-queue-in-python">
+<h1>The Graph Abstract Data Type</a></h1>
+<p>The graph abstract data type (ADT) is defined as follows:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">Graph()</span></code> creates a new, empty graph.</li>
+<li><code class="docutils literal"><span class="pre">addVertex(vert)</span></code> adds an instance of <code class="docutils literal"><span class="pre">Vertex</span></code> to the graph.</li>
+<li><code class="docutils literal"><span class="pre">addEdge(fromVert,</span> <span class="pre">toVert)</span></code> Adds a new, directed edge to the graph
+that connects two vertices.</li>
+<li><code class="docutils literal"><span class="pre">addEdge(fromVert,</span> <span class="pre">toVert,</span> <span class="pre">weight)</span></code> Adds a new, weighted, directed
+edge to the graph that connects two vertices.</li>
+<li><code class="docutils literal"><span class="pre">getVertex(vertKey)</span></code> finds the vertex in the graph named
+<code class="docutils literal"><span class="pre">vertKey</span></code>.</li>
+<li><code class="docutils literal"><span class="pre">getVertices()</span></code> returns the list of all vertices in the graph.</li>
+<li><code class="docutils literal"><span class="pre">in</span></code> returns <code class="docutils literal"><span class="pre">True</span></code> for a statement of the form
+<code class="docutils literal"><span class="pre">vertex</span> <span class="pre">in</span> <span class="pre">graph</span></code>, if the given vertex is in the graph, <code class="docutils literal"><span class="pre">False</span></code>
+otherwise.</li>
+</ul>
+
+<p>Beginning with the formal definition for a graph there are several ways
+we can implement the graph ADT in Python. We will see that there are
+trade-offs in using different representations to implement the ADT
+described above. There are two well-known implementations of a graph,
+the <strong>adjacency matrix</strong> and the <strong>adjacency list</strong>. We will explain
+both of these options, and then implement one as a Python class.</p>
+</div>
+
+
+
+<div>			
+<a id='fbtn1' href='Introduction to Graphs.html'>Previous</a><a id='fbtn2' href='Graph Adjacency Matrix.html'>Next</a>
+
+</div>
+	</body>
+	<!--JAVASCRIPT-->
+<script type="text/javascript">
+function setHeight(fieldId){
+    document.getElementById(fieldId).style.height = document.getElementById(fieldId).scrollHeight+'px';
+}
+setHeight('activecode');
+setHeight('stack_1ac')
+</script>
+	<script src="../clipboard.min.js"></script>
+		<script src="../highlight.pack.js"></script>
+		<script>hljs.initHighlightingOnLoad();</script>
+		<script>
+			var clipboard = new Clipboard('.btn');
+
+			clipboard.on('success', function(e) {
+				console.log(e);
+			});
+
+			clipboard.on('error', function(e) {
+				console.log(e);
+			});
+			function myFunction1() {
+				document.getElementById("btn1").innerHTML = "Copied";
+			}
+			function myFunction2() {
+				document.getElementById("btn2").innerHTML = "Copied";
+			}
+	</script>
+	
+</html>

@@ -1,0 +1,520 @@
+<div class="_description"><p>Python can handle many different types of databases. For each of these types a different API exists. So encourage similarity between those different API's, PEP 249 has been introduced.</p>
+<blockquote>
+<p>This API has been defined to encourage similarity between the Python modules that are used to access databases. By doing this, we hope to achieve a consistency leading to more easily understood modules, code that is generally more portable across databases, and a broader reach of database connectivity from Python. <a href="https://www.python.org/dev/peps/pep-0249/" rel="nofollow noreferrer">PEP-249</a></p>
+</blockquote>
+
+</div><div class="_item"><h2 class="_title">Accessing MySQL database using MySQLdb</h2><div class="_content"><p>The first thing you need to do is create a connection to the database using the connect method. After that, you will need a cursor that will operate with that connection.</p>
+<p>Use the execute method of the cursor to interact with the database, and every once in a while, commit the changes using the commit method of the connection object.</p>
+<p>Once everything is done, don't forget to close the cursor and the connection.</p>
+<p>Here is a Dbconnect class with everything you'll need.</p>
+<pre><code>import MySQLdb
+
+class Dbconnect(object):
+
+    def __init__(self):
+
+        self.dbconection = MySQLdb.connect(host='host_example',
+                                           port=int('port_example'),
+                                           user='user_example',
+                                           passwd='pass_example',
+                                           db='schema_example')
+        self.dbcursor = self.dbconection.cursor()
+
+    def commit_db(self):
+        self.dbconection.commit()
+
+    def close_db(self):
+        self.dbcursor.close()
+        self.dbconection.close()
+</code></pre>
+<p>Interacting with the database is simple. After creating the object, just use the execute method.</p>
+<pre><code>db = Dbconnect()
+db.dbcursor.execute('SELECT * FROM %s' % 'table_example')
+</code></pre>
+<p>If you want to call a stored procedure, use the following syntax. Note that the parameters list is optional.</p>
+<pre><code>db = Dbconnect()
+db.callproc('stored_procedure_name', [parameters] )
+</code></pre>
+<p>After the query is done, you can access the results multiple ways. The cursor object is a generator that can fetch all the results or be looped.</p>
+<pre><code>results = db.dbcursor.fetchall()
+for individual_row in results:
+    first_field = individual_row[0]
+</code></pre>
+<p>If you want a loop using directly the generator:</p>
+<pre><code>for individual_row in db.dbcursor:
+    first_field = individual_row[0]
+</code></pre>
+<p>If you want to commit changes to the database:</p>
+<pre><code>db.commit_db()
+</code></pre>
+<p>If you want to close the cursor and the connection:</p>
+<pre><code>db.close_db()
+</code></pre>
+
+</div><h2 class="_title">SQLite</h2><div class="_content"><p>SQLite is a lightweight, disk-based database. Since it does not require a separate database server, it is often used for prototyping or for small applications that are often used by a single user or by one user at a given time.</p>
+<pre><code>import sqlite3
+
+conn = sqlite3.connect(&quot;users.db&quot;)
+c = conn.cursor()
+
+c.execute(&quot;CREATE TABLE user (name text, age integer)&quot;)
+
+c.execute(&quot;INSERT INTO user VALUES ('User A', 42)&quot;)
+c.execute(&quot;INSERT INTO user VALUES ('User B', 43)&quot;)
+
+conn.commit()
+
+c.execute(&quot;SELECT * FROM user&quot;)
+print(c.fetchall())
+
+conn.close()
+</code></pre>
+<p>The code above connects to the database stored in the file named <code>users.db</code>, creating the file first if it doesn't already exist. You can interact with the database via SQL statements.</p>
+<p>The result of this example should be:</p>
+<pre><code>[(u'User A', 42), (u'User B', 43)]
+</code></pre>
+<hr />
+<h1>The SQLite Syntax: An in-depth analysis</h1>
+<h3>Getting started</h3>
+<ol>
+<li>
+<p>Import the sqlite module using</p>
+<pre><code>&gt;&gt;&gt; import sqlite3
+</code></pre>
+</li>
+<li>
+<p>To use the module, you must first create a Connection object that represents the database. Here the data will be stored in the example.db file:</p>
+<pre><code>&gt;&gt;&gt; conn = sqlite3.connect('users.db')
+</code></pre>
+<p>Alternatively, you can also supply the special name <code>:memory:</code> to create a temporary database in RAM, as follows:</p>
+<pre><code>&gt;&gt;&gt; conn = sqlite3.connect(':memory:')
+</code></pre>
+</li>
+<li>
+<p>Once you have a <code>Connection</code>, you can create a <code>Cursor</code> object and call its <code>execute()</code> method to perform SQL commands:</p>
+<h2></h2>
+<pre><code>c = conn.cursor()
+
+# Create table
+c.execute('''CREATE TABLE stocks
+            (date text, trans text, symbol text, qty real, price real)''')
+
+# Insert a row of data
+c.execute(&quot;INSERT INTO stocks VALUES ('2006-01-05','BUY','RHAT',100,35.14)&quot;)
+
+# Save (commit) the changes
+conn.commit()
+
+# We can also close the connection if we are done with it.
+# Just be sure any changes have been committed or they will be lost.
+conn.close()
+</code></pre>
+</li>
+</ol>
+<h3>Important Attributes and Functions of <code>Connection</code></h3>
+<ol>
+<li>
+<p><code>isolation_level</code></p>
+<p>It is an attribute used to get or set the current isolation level. None for autocommit mode or one of <code>DEFERRED</code>, <code>IMMEDIATE</code> or <code>EXCLUSIVE</code>.</p>
+</li>
+</ol>
+<ol start="2">
+<li>
+<p><code>cursor</code></p>
+<p>The cursor object is used to execute SQL commands and queries.</p>
+</li>
+</ol>
+<ol start="3">
+<li>
+<p><code>commit()</code></p>
+<p>Commits the current transaction.</p>
+</li>
+</ol>
+<ol start="4">
+<li>
+<p><code>rollback()</code></p>
+<p>Rolls back any changes made since the previous call to <code>commit()</code></p>
+</li>
+</ol>
+<ol start="5">
+<li>
+<p><code>close()</code></p>
+<p>Closes the database connection. It does not call <code>commit()</code> automatically. If <code>close()</code> is called without first calling <code>commit()</code> (assuming you are not in autocommit mode) then all changes made will be lost.</p>
+</li>
+</ol>
+<ol start="6">
+<li>
+<p><code>total_changes</code></p>
+<p>An attribute that logs the total number of rows modified, deleted or inserted since the database was opened.</p>
+</li>
+<li>
+<p><code>execute</code>, <code>executemany</code>, and <code>executescript</code></p>
+<p>These functions perform the same way as those of the cursor object. This is a shortcut since calling these functions through the connection object results in the creation of an intermediate cursor object and calls the corresponding method of the cursor object</p>
+</li>
+</ol>
+<ol start="8">
+<li>
+<p><code>row_factory</code></p>
+<p>You can change this attribute to a callable that accepts the cursor and the original row as a tuple and will return the real result row.</p>
+<pre><code>def dict_factory(cursor, row):
+    d = {}
+    for i, col in enumerate(cursor.description):
+        d[col[0]] = row[i]
+    return d
+
+conn = sqlite3.connect(&quot;:memory:&quot;)
+conn.row_factory = dict_factory
+</code></pre>
+</li>
+</ol>
+<h3>Important Functions of <code>Cursor</code></h3>
+<ol>
+<li>
+<p><code>execute(sql[, parameters])</code></p>
+<p>Executes a <em>single</em> SQL statement. The SQL statement may be parametrized (i. e. placeholders instead of SQL literals).
+The sqlite3 module supports two kinds of placeholders: question marks <code>?</code> (“qmark style”) and named placeholders <code>:name</code> (“named style”).</p>
+<pre><code>import sqlite3
+conn = sqlite3.connect(&quot;:memory:&quot;)
+cur = conn.cursor()
+cur.execute(&quot;create table people (name, age)&quot;)
+
+who = &quot;Sophia&quot;
+age = 37
+# This is the qmark style:
+cur.execute(&quot;insert into people values (?, ?)&quot;,
+            (who, age))
+
+# And this is the named style:
+cur.execute(&quot;select * from people where name=:who and age=:age&quot;,
+            {&quot;who&quot;: who, &quot;age&quot;: age})  # the keys correspond to the placeholders in SQL
+
+print(cur.fetchone())
+</code></pre>
+</li>
+</ol>
+<blockquote>
+<p>Beware: don't use <code>%s</code> for inserting strings into SQL commands as it
+can make your program vulnerable to an SQL injection attack (see
+<a class='doc-link' href="https://stackoverflow.com/documentation/sql/3517/sql-injection">SQL Injection</a> ).</p>
+</blockquote>
+<ol start="2">
+<li>
+<p><code>executemany(sql, seq_of_parameters)</code></p>
+<p>Executes an SQL command against all parameter sequences or mappings found in the sequence sql. The sqlite3 module also allows using an iterator yielding parameters instead of a sequence.</p>
+<pre><code>L = [(1, 'abcd', 'dfj', 300),    # A list of tuples to be inserted into the database
+     (2, 'cfgd', 'dyfj', 400),
+     (3, 'sdd', 'dfjh', 300.50)]                           
+
+conn = sqlite3.connect(&quot;test1.db&quot;)
+conn.execute(&quot;create table if not exists book (id int, name text, author text, price real)&quot;)
+conn.executemany(&quot;insert into book values (?, ?, ?, ?)&quot;, L)
+
+for row in conn.execute(&quot;select * from book&quot;):
+    print(row)
+</code></pre>
+<p>You can also pass iterator objects as a parameter to executemany, and the function will iterate over the each tuple of values that the iterator returns. The iterator must return a tuple of values.</p>
+<pre><code>import sqlite3
+
+class IterChars:
+    def __init__(self):
+        self.count = ord('a')
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):            # (use next(self) for Python 2)
+        if self.count &gt; ord('z'):
+            raise StopIteration
+        self.count += 1
+        return (chr(self.count - 1),) 
+
+conn = sqlite3.connect(&quot;abc.db&quot;)
+cur = conn.cursor()
+cur.execute(&quot;create table characters(c)&quot;)
+
+theIter = IterChars()
+cur.executemany(&quot;insert into characters(c) values (?)&quot;, theIter)
+
+rows = cur.execute(&quot;select c from characters&quot;)
+for row in rows:
+    print(row[0]),
+</code></pre>
+</li>
+<li>
+<p><code>executescript(sql_script)</code></p>
+<p>This is a nonstandard convenience method for executing multiple SQL statements at once. It issues a <code>COMMIT</code> statement first, then executes the SQL script it gets as a parameter.</p>
+<p><code>sql_script</code> can be an instance of <code>str</code> or <code>bytes</code>.</p>
+<pre><code>import sqlite3
+conn = sqlite3.connect(&quot;:memory:&quot;)
+cur = conn.cursor()
+cur.executescript(&quot;&quot;&quot;
+     create table person(
+         firstname,
+         lastname,
+         age
+     );
+
+     create table book(
+         title,
+         author,
+         published
+     );
+
+     insert into book(title, author, published)
+     values (
+         'Dirk Gently''s Holistic Detective Agency',
+         'Douglas Adams',
+         1987
+     );
+     &quot;&quot;&quot;)
+</code></pre>
+<p>The next set of functions are used in conjunction with <code>SELECT</code> statements in SQL. To retrieve data after executing a <code>SELECT</code> statement, you can either treat the cursor as an iterator, call the cursor’s <code>fetchone()</code> method to retrieve a single matching row, or call <code>fetchall()</code> to get a list of the matching rows.</p>
+<p>Example of the iterator form:</p>
+<pre><code>import sqlite3
+stocks = [('2006-01-05', 'BUY', 'RHAT', 100, 35.14),
+          ('2006-03-28', 'BUY', 'IBM', 1000, 45.0),
+          ('2006-04-06', 'SELL', 'IBM', 500, 53.0),
+          ('2006-04-05', 'BUY', 'MSFT', 1000, 72.0)]
+conn = sqlite3.connect(&quot;:memory:&quot;)
+conn.execute(&quot;create table stocks (date text, buysell text, symb text, amount int, price real)&quot;)
+conn.executemany(&quot;insert into stocks values (?, ?, ?, ?, ?)&quot;, stocks)    
+cur = conn.cursor()
+
+for row in cur.execute('SELECT * FROM stocks ORDER BY price'):
+    print(row)
+
+# Output:
+# ('2006-01-05', 'BUY', 'RHAT', 100, 35.14)
+# ('2006-03-28', 'BUY', 'IBM', 1000, 45.0)
+# ('2006-04-06', 'SELL', 'IBM', 500, 53.0)
+# ('2006-04-05', 'BUY', 'MSFT', 1000, 72.0)
+</code></pre>
+</li>
+<li>
+<p><code>fetchone()</code></p>
+<p>Fetches the next row of a query result set, returning a single sequence, or None when no more data is available.</p>
+<pre><code>cur.execute('SELECT * FROM stocks ORDER BY price')
+i = cur.fetchone()
+while(i): 
+    print(i)
+    i = cur.fetchone()
+
+# Output:
+# ('2006-01-05', 'BUY', 'RHAT', 100, 35.14)
+# ('2006-03-28', 'BUY', 'IBM', 1000, 45.0)
+# ('2006-04-06', 'SELL', 'IBM', 500, 53.0)
+# ('2006-04-05', 'BUY', 'MSFT', 1000, 72.0)
+</code></pre>
+</li>
+<li>
+<p><code>fetchmany(size=cursor.arraysize)</code></p>
+<p>Fetches the next set of rows of a query result (specified by size), returning a list. If size is omitted, fetchmany returns a single row. An empty list is returned when no more rows are available.</p>
+<pre><code>cur.execute('SELECT * FROM stocks ORDER BY price')
+print(cur.fetchmany(2))
+
+# Output:    
+# [('2006-01-05', 'BUY', 'RHAT', 100, 35.14), ('2006-03-28', 'BUY', 'IBM', 1000, 45.0)]
+</code></pre>
+</li>
+<li>
+<p><code>fetchall()</code></p>
+<p>Fetches all (remaining) rows of a query result, returning a list.</p>
+<pre><code>cur.execute('SELECT * FROM stocks ORDER BY price')
+print(cur.fetchall())
+
+# Output:
+# [('2006-01-05', 'BUY', 'RHAT', 100, 35.14), ('2006-03-28', 'BUY', 'IBM', 1000, 45.0), ('2006-04-06', 'SELL', 'IBM', 500, 53.0), ('2006-04-05', 'BUY', 'MSFT', 1000, 72.0)]
+</code></pre>
+</li>
+</ol>
+<h3>SQLite and Python data types</h3>
+<p>SQLite natively supports the following types: NULL, INTEGER, REAL, TEXT, BLOB.</p>
+<p>This is how the data types are converted when moving from SQL to Python or vice versa.</p>
+<pre><code>                None     &lt;-&gt;     NULL
+                int      &lt;-&gt;     INTEGER/INT
+                float    &lt;-&gt;     REAL/FLOAT
+                str      &lt;-&gt;     TEXT/VARCHAR(n)
+                bytes    &lt;-&gt;     BLOB
+</code></pre>
+
+</div><h2 class="_title">PostgreSQL Database access using psycopg2</h2><div class="_content"><p><strong><em>psycopg2</em></strong> is the most popular PostgreSQL database adapter that is both lightweight and efficient. It is the current implementation of the PostgreSQL adapter.</p>
+<blockquote>
+<p>Its main features are the complete implementation of the Python DB API
+2.0 specification and the thread safety (several threads can share the same connection)</p>
+</blockquote>
+<h2>Establishing a connection to the database and creating a table</h2>
+<pre><code>import psycopg2
+
+# Establish a connection to the database.
+# Replace parameter values with database credentials.
+conn = psycopg2.connect(database=&quot;testpython&quot;, 
+                        user=&quot;postgres&quot;,
+                        host=&quot;localhost&quot;,
+                        password=&quot;abc123&quot;,
+                        port=&quot;5432&quot;) 
+
+# Create a cursor. The cursor allows you to execute database queries. 
+cur = conn.cursor()
+
+# Create a table. Initialise the table name, the column names and data type. 
+cur.execute(&quot;&quot;&quot;CREATE TABLE FRUITS (
+                    id          INT ,
+                    fruit_name  TEXT,
+                    color       TEXT,
+                    price       REAL
+            )&quot;&quot;&quot;)
+conn.commit()
+conn.close()
+</code></pre>
+<hr />
+<h2>Inserting data into the table:</h2>
+<pre><code># After creating the table as shown above, insert values into it.
+cur.execute(&quot;&quot;&quot;INSERT INTO FRUITS (id, fruit_name, color, price)
+               VALUES (1, 'Apples', 'green', 1.00)&quot;&quot;&quot;)
+
+cur.execute(&quot;&quot;&quot;INSERT INTO FRUITS (id, fruit_name, color, price)
+               VALUES (1, 'Bananas', 'yellow', 0.80)&quot;&quot;&quot;)
+</code></pre>
+<hr />
+<h2>Retrieving table data:</h2>
+<pre><code># Set up a query and execute it 
+cur.execute(&quot;&quot;&quot;SELECT id, fruit_name, color, price 
+             FROM fruits&quot;&quot;&quot;)
+
+# Fetch the data 
+rows = cur.fetchall()
+
+# Do stuff with the data
+for row in rows:
+    print &quot;ID = {} &quot;.format(row[0])
+    print &quot;FRUIT NAME = {}&quot;.format(row[1])
+    print(&quot;COLOR = {}&quot;.format(row[2]))
+    print(&quot;PRICE = {}&quot;.format(row[3]))
+</code></pre>
+<p>The output of the above would be:</p>
+<pre><code>ID = 1 
+NAME = Apples
+COLOR = green
+PRICE = 1.0
+
+ID = 2 
+NAME = Bananas
+COLOR = yellow
+PRICE = 0.8
+</code></pre>
+<p>And so, there you go, you now know half of
+all you need to know about <strong><em>psycopg2</em></strong>! :)</p>
+
+</div><h2 class="_title">Oracle database</h2><div class="_content"><p><strong>Pre-requisites:</strong></p>
+<ul>
+<li>cx_Oracle package - See <a href="https://pypi.python.org/pypi/cx_Oracle/5.2.1" rel="nofollow noreferrer">here</a> for all versions</li>
+<li>Oracle instant client - For <a href="http://www.oracle.com/technetwork/topics/winx64soft-089540.html" rel="nofollow noreferrer">Windows x64</a>, <a href="http://www.oracle.com/technetwork/topics/linuxx86-64soft-092277.html" rel="nofollow noreferrer">Linux x64</a></li>
+</ul>
+<p><strong>Setup:</strong></p>
+<ul>
+<li>
+<p>Install the cx_Oracle package as:</p>
+<p><code>sudo rpm -i &lt;YOUR_PACKAGE_FILENAME&gt;</code></p>
+</li>
+<li>
+<p>Extract the Oracle instant client and set environment variables as:</p>
+</li>
+</ul>
+<pre><code>ORACLE_HOME=&lt;PATH_TO_INSTANTCLIENT&gt;
+PATH=$ORACLE_HOME:$PATH
+LD_LIBRARY_PATH=&lt;PATH_TO_INSTANTCLIENT&gt;:$LD_LIBRARY_PATH
+</code></pre>
+<p><strong>Creating a connection:</strong></p>
+<pre><code>import cx_Oracle
+
+class OraExec(object):
+    _db_connection = None
+    _db_cur = None
+
+    def __init__(self):
+        self._db_connection = 
+            cx_Oracle.connect('&lt;USERNAME&gt;/&lt;PASSWORD&gt;@&lt;HOSTNAME&gt;:&lt;PORT&gt;/&lt;SERVICE_NAME&gt;')
+        self._db_cur = self._db_connection.cursor()
+</code></pre>
+<p><strong>Get database version:</strong></p>
+<pre><code>ver = con.version.split(&quot;.&quot;)
+print ver
+</code></pre>
+<p>Sample Output:
+['12', '1', '0', '2', '0']</p>
+<p><strong>Execute query: SELECT</strong></p>
+<pre><code>_db_cur.execute(&quot;select * from employees order by emp_id&quot;)
+for result in _db_cur:
+    print result
+</code></pre>
+<p>Output will be in Python tuples:</p>
+<p>(10, 'SYSADMIN', 'IT-INFRA', 7)</p>
+<p>(23, 'HR ASSOCIATE', 'HUMAN RESOURCES', 6)</p>
+<p><strong>Execute query: INSERT</strong></p>
+<pre><code>_db_cur.execute(&quot;insert into employees(emp_id, title, dept, grade) 
+                values (31, 'MTS', 'ENGINEERING', 7)
+_db_connection.commit()
+</code></pre>
+<p>When you perform insert/update/delete operations in an Oracle Database, the changes are only available within your session until <code>commit</code> is issued. When the updated data is committed to the database, it is then available to other users and sessions.</p>
+<p><strong>Execute query: INSERT using Bind variables</strong></p>
+<p><a href="http://www.oracle.com/technetwork/articles/dsl/python-091105.html" rel="nofollow noreferrer">Reference</a></p>
+<p>Bind variables enable you to re-execute statements with new values, without the overhead of re-parsing the statement. Bind variables improve code re-usability, and can reduce the risk of SQL Injection attacks.</p>
+<pre><code>rows = [ (1, &quot;First&quot; ),
+     (2, &quot;Second&quot; ),
+     (3, &quot;Third&quot; ) ]
+_db_cur.bindarraysize = 3
+_db_cur.setinputsizes(int, 10)
+_db_cur.executemany(&quot;insert into mytab(id, data) values (:1, :2)&quot;, rows)
+_db_connection.commit()
+</code></pre>
+<p><strong>Close connection:</strong></p>
+<pre><code>_db_connection.close()
+</code></pre>
+<p>The close() method closes the connection. Any connections not explicitly closed will be automatically released when the script ends.</p>
+
+</div><h2 class="_title">Connection</h2><div class="_content"><p><strong>Creating a connection</strong></p>
+<p>According to PEP 249, the connection to a database should be established using a <code>connect()</code> constructor, which returns a <code>Connection</code> object. The arguments for this constructor are database dependent. Refer to the database specific topics for the relevant arguments.</p>
+<pre><code>import MyDBAPI
+
+con = MyDBAPI.connect(*database_dependent_args)
+</code></pre>
+<p>This connection object has four methods:</p>
+<p><strong>1: close</strong></p>
+<pre><code>con.close()
+</code></pre>
+<p>Closes the connection instantly. Note that the connection is automatically closed if the <code>Connection.__del___</code> method is called. Any pending transactions will implicitely be rolled back.</p>
+<p><strong>2: commit</strong></p>
+<pre><code>con.commit()
+</code></pre>
+<p>Commits any pending transaction the to database.</p>
+<p><strong>3: rollback</strong></p>
+<pre><code>con.rollback()
+</code></pre>
+<p>Rolls back to the start of any pending transaction. In other words: this cancels any non-committed transaction to the database.</p>
+<p><strong>4: cursor</strong></p>
+<pre><code>cur = con.cursor()
+</code></pre>
+<p>Returns a <code>Cursor</code> object. This is used to do transactions on the database.</p>
+
+</div><h2 class="_title">Using sqlalchemy</h2><div class="_content"><p>To use sqlalchemy for database:</p>
+<pre><code>from sqlalchemy import create_engine
+from sqlalchemy.engine.url import URL
+
+
+url = URL(drivername='mysql',
+          username='user',
+          password='passwd',
+          host='host',
+          database='db')
+
+engine = create_engine(url)  # sqlalchemy engine
+</code></pre>
+<p>Now this engine can be used:
+e.g. with pandas to fetch dataframes directly from mysql</p>
+<pre><code>import pandas as pd
+
+con = engine.connect()
+dataframe = pd.read_sql(sql=query, con=con)
+</code></pre>
+
+</div></div>

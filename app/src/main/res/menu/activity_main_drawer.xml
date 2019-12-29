@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/basics"
+            android:icon="@drawable/ic_home_black_24dp"
+            android:title="Basic Tutorials" />
+        <item
+            android:id="@+id/advance"
+            android:icon="@mipmap/icon"
+            android:title="Advance Tutorials" />
+        <item
+            android:id="@+id/program"
+            android:icon="@drawable/ic_code"
+            android:title="Let's start with Programs" />
+        <item
+            android:id="@+id/data_structure"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Data Structures" />
+    </group>
+
+    <item android:title="Practice">
+        <menu>
+            <item
+                android:id="@+id/quiz"
+                android:icon="@drawable/ic_question_answer_black_24dp"
+                android:title="Quiz" />
+            <item
+                android:id="@+id/quetions"
+                android:icon="@drawable/ic_menu_send"
+                android:title="quetions" />
+        </menu>
+    </item>
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="@string/menu_share" />
+            <item
+                android:id="@+id/nav_send"
+                android:icon="@drawable/ic_menu_send"
+                android:title="@string/menu_send" />
+        </menu>
+    </item>
+
+
+</menu>

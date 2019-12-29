@@ -1,0 +1,131 @@
+
+<html>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+										<link rel='stylesheet' href='css/default.css'>
+
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+	<head>
+		<link rel='stylesheet' href='../python/css/style.css'>
+				<link rel='stylesheet' href='../python/css/default.css'>
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+	
+	<body>
+	 
+   <div class="section" id="implementing-a-queue-in-python">
+<h1>Graphs Terminology</a></h1>
+<p>Now that we have looked at some examples of graphs, we will more
+formally define a graph and its components. We already know some of
+these terms from our discussion of trees.</p>
+<dl class="docutils">
+<dt>Vertex</dt>
+<dd>A vertex (also called a “node”) is a fundamental part of a graph. It
+can have a name, which we will call the “key.” A vertex may also
+have additional information. We will call this additional
+information the “payload.”</dd>
+<dt>Edge</dt>
+<dd>An edge (also called an “arc”) is another fundamental part of a
+graph. An edge connects two vertices to show that there is a
+relationship between them. Edges may be one-way or two-way. If the
+edges in a graph are all one-way, we say that the graph is a
+<strong>directed graph</strong>, or a <strong>digraph</strong>. The class prerequisites graph
+shown above is clearly a digraph since you must take some classes
+before others.</dd>
+<dt>Weight</dt>
+<dd>Edges may be weighted to show that there is a cost to go from one
+vertex to another. For example in a graph of roads that connect one
+city to another, the weight on the edge might represent the distance
+between the two cities.</dd>
+</dl>
+<p>With those definitions in hand we can formally define a graph. A graph
+can be represented by <span class="math">(G)</span> where <span class="math">(G =(V,E))</span>. For the
+graph <span class="math">(G)</span>, <span class="math">(V)</span> is a set of vertices and <span class="math">(E)</span> is a
+set of edges. Each edge is a tuple <span class="math">((v,w))</span> where
+<span class="math">(w,v in V)</span>. We can add a third component to the edge tuple to
+represent a weight. A subgraph <span class="math">(s)</span> is a set of edges <span class="math">(e)</span>
+and vertices <span class="math">(v)</span> such that <span class="math">(e subset E)</span> and
+<span class="math">(v subset V)</span>.</p>
+<p><a class="reference internal" href="#fig-dgsimple"><span class="std std-ref">Figure&nbsp; 2</span></a> shows another example of a simple weighted
+digraph. Formally we can represent this graph as the set of six
+vertices:</p>
+<div class="math">
+[V = { V0,V1,V2,V3,V4,V5 }]</div>
+<p>and the set of nine edges:</p>
+<div class="math">
+E ={ (v0,v1,5), (v1,v2,4), (v2,v3,9), (v3,v4,7), (v4,v0,1),
+             (v0,v5,2),(v5,v4,8),(v3,v5,3),(v5,v2,1)
+             }</div>
+<div class="figure align-center" id="id1">
+<span id="fig-dgsimple"></span><img alt="../_images/digraph.png" src="images/digraph.png" />
+<p class="caption"><span class="caption-text">Figure 2: A Simple Example of a Directed Graph</span></p>
+</div>
+<p>The example graph in <a class="reference internal" href="#fig-dgsimple"><span class="std std-ref">Figure 2</span></a> helps illustrate two other
+key graph terms:</p>
+<dl class="docutils">
+<dt>Path</dt>
+<dd>A path in a graph is a sequence of vertices that are connected by
+edges. Formally we would define a path as
+<span class="math">(w_1, w_2, ..., w_n)</span> such that
+<span class="math">((w_i, w_{i+1}) in E)</span> for all <span class="math">1<=i<=n-1</span>.
+The unweighted path length is the number of edges in the path,
+specifically <span class="math">(n-1)</span>. The weighted path length is the sum of
+the weights of all the edges in the path. For example in
+<a class="reference internal" href="#fig-dgsimple"><span class="std std-ref">Figure 2</span></a> the path from <span class="math">(V3)</span> to <span class="math">(V1)</span> is
+the sequence of vertices <span class="math">((V3,V4,V0,V1))</span>. The edges are
+<span class="math">{(v3,v4,7),(v4,v0,1),(v0,v1,5) }</span>.</dd>
+<dt>Cycle</dt>
+<dd>A cycle in a directed graph is a path that starts and ends at the
+same vertex. For example, in <a class="reference internal" href="#fig-dgsimple"><span class="std std-ref">Figure 2</span></a> the path
+<span class="math">((V5,V2,V3,V5))</span> is a cycle. A graph with no cycles is called
+an <strong>acyclic graph</strong>. A directed graph with no cycles is called a
+<strong>directed acyclic graph</strong> or a <strong>DAG</strong>. 
+as a DAG.</dd>
+</dl>
+</div>
+
+
+<div>			
+<a id='fbtn1' href='Introduction to Graphs.html'>Previous</a><a id='fbtn2' href='The Graph Abstract Data Type.html'>Next</a>
+
+</div>
+	</body>
+	<!--JAVASCRIPT-->
+<script type="text/javascript">
+function setHeight(fieldId){
+    document.getElementById(fieldId).style.height = document.getElementById(fieldId).scrollHeight+'px';
+}
+setHeight('activecode');
+setHeight('stack_1ac')
+</script>
+	<script src="../clipboard.min.js"></script>
+		<script src="../highlight.pack.js"></script>
+		<script>hljs.initHighlightingOnLoad();</script>
+		<script>
+			var clipboard = new Clipboard('.btn');
+
+			clipboard.on('success', function(e) {
+				console.log(e);
+			});
+
+			clipboard.on('error', function(e) {
+				console.log(e);
+			});
+			function myFunction1() {
+				document.getElementById("btn1").innerHTML = "Copied";
+			}
+			function myFunction2() {
+				document.getElementById("btn2").innerHTML = "Copied";
+			}
+	</script>
+	
+</html>

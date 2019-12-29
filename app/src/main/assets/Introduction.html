@@ -1,0 +1,191 @@
+<!DOCTYPE HTML PUBLIC ">
+<html><head>
+
+
+</head><body class="calibre"><big><span style="font-style: italic;"></span><span style="font-style: italic;"></span></big><b style="color: rgb(51, 51, 51); font-family: Verdana,Arial,Tahoma,Calibri,Geneva,sans-serif; font-size: 15px; font-style: normal; font-variant: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: rgb(255, 255, 255);"><div style="margin: 0px; padding: 0px; text-align: center;"><font style="" color="#006400"><font style="" size="5">Intro</font></font><span style="color: rgb(0, 0, 102); font-family: Verdana; font-size: 16px; font-style: normal; font-variant: normal; font-weight: bold; letter-spacing: normal; line-height: normal; orphans: 2; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: rgb(255, 255, 255); display: inline ! important; float: none;"><br>
+</span></div>
+</b>
+<p class="style32" style="font-family: Verdana; font-size: 10pt; text-decoration: none; font-weight: bold; color: rgb(0, 51, 153); font-style: normal; font-variant: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: rgb(255, 255, 255);" align="center"><b style="color: rgb(51, 51, 51); font-family: Verdana,Arial,Tahoma,Calibri,Geneva,sans-serif; font-size: 15px; font-style: normal; font-variant: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: rgb(255, 255, 255);">
+<div style="margin: 0px; padding: 0px; text-align: center;"><font style="" size="4"><span style="font-family: 'Palatino Linotype';"></span></font></div>
+</b></p><br>
+<p>So, you've never programmed before. As we go through this tutorial, I
+ will attempt to teach you how to program. There really is only one way 
+to learn to program. <b>You</b> must read <i>code</i> and write <i>code</i>
+ (as computer programs are often called). I'm going to show you lots of 
+code. You should type in code that I show you to see what happens. Play 
+around with it and make changes. The worst that can happen is that it 
+won't work. When I type in code it will be formatted like this:</p>
+
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr">
+<div class="python source-python">
+<pre class="de1"><span class="co1">##Python is easy to learn</span><br><span class="kw1">print</span> <span class="st0">"Hello, World!"</span>
+</pre></div>
+</div>
+
+<p>That's so it is easy to distinguish from the other text. If you're 
+reading this on the web, you'll notice the code is in color -- that's 
+just to make it stand out, and to make the different parts of the code 
+stand out from each other. The code you enter will probably not be 
+colored, or the colors may be different, but it won't affect the code as
+ long as you enter it the same way as it's printed here.</p>
+
+<p>If the computer prints something out it will be formatted like this:</p>
+
+<pre>Hello, World!<br></pre>
+
+<p>(Note that printed text goes to your screen, and does not involve 
+paper. Before computers had screens, the output of computer programs 
+would be printed on paper.)</p>
+
+<p>If you try this program out and you get a syntax error, check and see
+ what version of python you have. If you have python 3.0, you should be 
+using the <a href="http://en.wikibooks.org/wiki/Non-Programmer%27s_Tutorial_for_Python_3.0" title="Non-Programmer's Tutorial for Python 3.0" class="mw-redirect">Non-Programmer's Tutorial for Python 3.0</a>. This article was made for Python 2.6</p>
+
+<p>There will often be a mixture of the text you type (which is shown in <b>bold</b>) and the text the program prints to the screen, which would look like this:</p>
+
+<pre>Halt!<br>Who Goes there? <b>Josh</b><br>You may pass, Josh<br></pre>
+
+<p>(Some of the tutorial has not been converted to this format. Since this is a wiki, you can convert it when you find it.)</p>
+
+<p>I will also introduce you to the terminology of programming - for example, that programming is often referred to as <i>coding</i>. This will not only help you understand what programmers are talking about, but also help the learning process.</p>
+
+<p>Now, on to more important things. In order to program in Python you 
+need the Python software. If you don't already have the Python software 
+go to <a target="_blank" rel="nofollow" class="external free" href="http://www.python.org/download/">http://www.python.org/download/</a> and get the proper version for your platform. Download it, read the instructions and get it installed.</p>
+
+<h3> <span class="mw-headline" id="Installing_Python">Installing Python</span></h3>
+
+<p>For Python programming you need a working Python installation and a text editor. Python comes with its own editor <i>IDLE</i>,
+ which is quite nice and totally sufficient for the beginning. As you 
+get more into programming, you will probably switch to some other editor
+ like <i>emacs</i>, <i>vi</i> or another.</p>
+
+<p>The Python download page is <a target="_blank" rel="nofollow" class="external free" href="http://www.python.org/download">http://www.python.org/download</a>. The most recent version is 3.1, but any <i>Python 2.x</i> version since 2.2 will work for this tutorial. Be careful with the upcoming <i>Python 3</i>, though, as some major details will change and break this tutorial's examples. A version of this tutorial for Python 3 is at <a href="http://en.wikibooks.org/wiki/Non-Programmer%27s_Tutorial_for_Python_3" title="Non-Programmer's Tutorial for Python 3">Non-Programmer's Tutorial for Python 3</a>.
+ There are various different installation files for different computer 
+platforms available on the download site. Here are some specific 
+instructions for the most common operating systems:</p>
+
+<h4> <span class="mw-headline" id="Linux.2C_BSD_and_Unix_users">Linux, BSD and Unix users</span></h4>
+
+<p>You are probably lucky and Python is already installed on your machine. To test it type <tt>python</tt> on a command line. If you see something like that in the following section, you are set.</p>
+
+<p>If you have to install Python, just use the operating system's 
+package manager or go to the repository where your packages are 
+available and get Python. Alternatively, you can compile Python from 
+scratch after downloading the source code. If you get the source code 
+make sure you compile in the Tk extension if you want to use IDLE.</p>
+
+<h4> <span class="mw-headline" id="Mac_users">Mac users</span></h4>
+
+<p>Starting from Mac OS X (Tiger), Python ships by default with the 
+operating system, but you might want to update to the newer version 
+(check the version by starting <tt>python</tt> in a command line 
+terminal). Also IDLE (the Python editor) might be missing in the 
+standard installation. If you want to (re-)install Python, have a look 
+at the <a target="_blank" rel="nofollow" class="external text" href="http://www.python.org/download/mac/">Mac page on the Python download site</a>.</p>
+
+<h4> <span class="mw-headline" id="Windows_users">Windows users</span></h4>
+
+<p>Some computer manufacturers pre-install Python. To check if you 
+already have it installed, open command prompt (cmd in run menu) or 
+MS-DOS and type python. If it says "Bad command or file name" you will 
+need to download the appropriate Windows installer (the normal one, if 
+you do not have a 64-bit AMD or Intel chip). Start the installer by 
+double-clicking it and follow the procedure. Python for windows can be 
+downloaded from the official <a target="_blank" rel="nofollow" class="external text" href="http://www.python.org/getit/">site of python</a></p>
+
+<h3> <span class="mw-headline" id="Interactive_Mode">Interactive Mode</span></h3>
+
+<p>Go into IDLE (also called the Python GUI). You should see a window that has some text like this:</p>
+
+<pre>Python 2.5.1 (r251:54863, Apr 18 2007, 08:51:08) [MSC v.1310 32 bit (Intel)] on win32<br>Type "copyright", "credits" or "license()" for more information.<br><br><br>   ****************************************************************<br>   Personal firewall software may warn about the connection IDLE<br>   makes to its subprocess using this computer's internal loopback<br>   interface.  This connection is not visible on any external<br>   interface and no data is sent to or received from the Internet.<br>   ****************************************************************<br><br><br>IDLE 1.2.1      <br>&gt;&gt;&gt;<br></pre>
+
+<p>The <code>&gt;&gt;&gt;</code> is Python's way of telling you that you
+ are in interactive mode. In interactive mode what you type is 
+immediately run. Try typing <code>1+1</code> in. Python will respond with <code>2</code>.
+ Interactive mode allows you to test out and see what Python will do. If
+ you ever feel you need to play with new Python statements, go into 
+interactive mode and try them out.</p>
+
+<h3> <span class="mw-headline" id="Creating_and_Running_Programs">Creating and Running Programs</span></h3>
+
+<p>Go into IDLE if you are not already. In the menu at the top, select <code>File</code> then <code>New Window</code>. In the new window that appears, type the following:</p>
+
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr">
+<div class="python source-python">
+<pre class="de1"><span class="kw1">print</span> <span class="st0">"Hello, World!"</span>
+</pre></div>
+</div>
+
+<p>Now save the program: select <code>File</code> from the menu, then <code>Save</code>. Save it as "<code>hello.py</code>" (you can save it in any folder you want). Now that it is saved it can be run.</p>
+
+<p>Next run the program by going to <code>Run</code> then <code>Run Module</code> (or if you have a older version of IDLE use <code>Edit</code> then <code>Run script</code>). This will output <code>Hello, World!</code> on the <code>*Python Shell*</code> window.</p>
+
+<p>For a more in-depth introduction to IDLE, a longer tutorial with screenshots can be found at <a target="_blank" rel="nofollow" class="external free" href="http://hkn.eecs.berkeley.edu/%7Edyoo/python/idle_intro/index.html">http://hkn.eecs.berkeley.edu/~dyoo/python/idle_intro/index.html</a></p>
+
+<h4> <span class="mw-headline" id="Running_Python_Programs_in_Unix">Running Python Programs in Unix</span></h4>
+
+<p>If you are using Unix (such as Linux, Mac OSX, or BSD), if you make the program executable with <code>chmod</code>, and have as the first line:</p>
+
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr">
+<div class="python source-python">
+<pre class="de1"><span class="co1">#!/usr/bin/env python2</span>
+</pre></div>
+</div>
+
+<p>you can run the python program with <code>./hello.py</code> like any other command.</p>
+
+<p>Note: In some computer environments, you need to write:</p>
+
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr">
+<div class="python source-python">
+<pre class="de1"><span class="co1">#!/usr/bin/env python</span>
+</pre></div>
+</div>
+
+<h4> <span class="mw-headline" id="Program_file_names">Program file names</span></h4>
+
+<p>It is very useful to stick to some rules regarding the file names of Python programs. Otherwise some things <i>might</i>
+ go wrong unexpectedly. These don't matter as much for programs, but you
+ can have weird problems if you don't follow them for module names 
+(modules will be discussed later).</p>
+
+<ol>
+<li>Always save the program with the extension <tt>.py</tt>. Do not put another dot somewhere else in the file name.</li><li>Only use standard characters for file names: letters, numbers, dash (<tt>-</tt>) and underscore (<tt>_</tt>).</li><li>White space (" ") should not be used at all (use e.g. underscores instead).</li><li>Do not use anything other than a letter (particularly no numbers!) at the beginning of a file name.</li><li>Do not use "non-english" characters (such as <tt>ä</tt>, <tt>ö</tt>, <tt>ü</tt>, <tt>å</tt> or <tt>ß</tt>) in your file names—or, even better, do not use them at all when programming.</li>
+</ol>
+
+<h3> <span class="mw-headline" id="Using_Python_from_the_command_line">Using Python from the command line</span></h3>
+
+<p>If you don't want to use Python from the command line, you don't have to, just use IDLE. To get into interactive mode just type <code>python</code> without any arguments. To run a program, create it with a text editor (Emacs has a good Python mode) and then run it with <code>python program_name</code>.</p>
+
+<p>Additionally, to use Python within Vim, you may want to visit <a target="_blank" rel="nofollow" class="external text" href="http://www.ibiblio.org/obp/pybiblio/tips/elkner/vim4python.php">Using vim as a Python IDE</a></p>
+
+<h3> <span class="mw-headline" id="Where_to_get_help">Where to get help</span></h3>
+
+<p>At some point in your Python career you will probably get stuck and 
+have no clue about how to solve the problem you are supposed to work on.
+ This tutorial only covers the basics of Python programming, but there 
+is a lot of further information available.</p>
+
+<h4> <span class="mw-headline" id="Python_documentation">Python documentation</span></h4>
+
+<p>First of all, Python is very well documented. There might even be 
+copies of these documents on your computer, which came with your Python 
+installation: <b>* The official <a target="_blank" rel="nofollow" class="external text" href="http://docs.python.org/tut/tut.html">Python Tutorial</a> by Guido van Rossum is often a good starting point for general questions</b>.</p>
+
+<ul>
+<li>For questions about standard modules (you will learn what this is later), the <a target="_blank" rel="nofollow" class="external text" href="http://docs.python.org/lib/lib.html">Python Library Reference</a> is the place to look.</li><li>If you really want to get to know something about the details of the language, the <a target="_blank" rel="nofollow" class="external text" href="http://docs.python.org/ref/ref.html">Python Reference Manual</a> is comprehensive but quite complex for beginners.</li>
+</ul>
+
+<h4> <span class="mw-headline" id="Python_user_community">Python user community</span></h4>
+
+<p>There are a lot of other Python users out there, and usually they are
+ nice and willing to help you. This very active user community is 
+organised mostly through mailing lists and a newsgroup:</p>
+
+<ul>
+<li>The <a target="_blank" rel="nofollow" class="external text" href="http://mail.python.org/mailman/listinfo/tutor">tutor mailing list</a> is for folks who want to ask questions regarding how to learn computer programming with the Python language.</li><li>The <a target="_blank" rel="nofollow" class="external text" href="http://www.python.org/community/lists/#python-help">python-help mailing list</a> is python.org's help desk. You can ask a group of knowledgeable volunteers questions about all your Python problems.</li><li>The Python newsgroup <a target="_blank" rel="nofollow" class="external text" href="news:comp.lang.python">comp.lang.python</a> (<a target="_blank" rel="nofollow" class="external text" href="http://groups.google.com/group/comp.lang.python/">Google groups archive</a>) is the place for general Python discussions, questions and the central meeting point of the community.</li>
+</ul>
+
+<p>In order not to reinvent the wheel and discuss the same questions again and again, people will appreciate very much if you <i>do a web search for a solution to your problem before contacting these lists!</i></p>
+</body></html>

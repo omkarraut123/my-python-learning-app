@@ -1,0 +1,100 @@
+
+<html>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+										<link rel='stylesheet' href='css/default.css'>
+
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+	<head>
+		<link rel='stylesheet' href='../python/css/style.css'>
+				<link rel='stylesheet' href='../python/css/default.css'>
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+	
+	<body>
+	 
+   <div class="section" id="implementing-a-queue-in-python">
+<h1>Graph Adjacency Matrix</a></h1>
+<p>One of the easiest ways to implement a graph is to use a two-dimensional
+matrix. In this matrix implementation, each of the rows and columns
+represent a vertex in the graph. The value that is stored in the cell at
+the intersection of row <span class="math">(v)</span> and column <span class="math">(w)</span> indicates if
+there is an edge from vertex <span class="math">(v)</span> to vertex <span class="math">(w)</span>. When two
+vertices are connected by an edge, we say that they are <strong>adjacent</strong>.
+<a class="reference internal" href="#fig-adjmat"><span class="std std-ref">Figure 3</span></a> illustrates the adjacency matrix for the graph in
+<span class="std std-ref">Figure 2</span>. A value in a cell represents the weight of the
+edge from vertex <span class="math">(v)</span> to vertex <span class="math">(w)</span>.</p>
+<div class="figure align-center" id="id1">
+<span id="fig-adjmat"></span><img alt="../_images/adjMat.png" src="images/adjMat.png" />
+<p class="caption"><span class="caption-text">Figure 3: An Adjacency Matrix Representation for a Graph</span></p>
+</div>
+
+<div class="figure align-center" id="id1">
+<span id="fig-dgsimple"></span><img alt="../_images/digraph.png" src="images/digraph.png" />
+<p class="caption"><span class="caption-text">Figure 2: A Simple Example of a Directed Graph</span></p>
+</div>
+
+
+<p>The advantage of the adjacency matrix is that it is simple, and for
+small graphs it is easy to see which nodes are connected to other nodes.
+However, notice that most of the cells in the matrix are empty. Because
+most of the cells are empty we say that this matrix is “sparse.” A
+matrix is not a very efficient way to store sparse data. In fact, in
+Python you must go out of your way to even create a matrix structure
+like the one in <a class="reference internal" href="#fig-adjmat"><span class="std std-ref">Figure 3</span></a>.</p>
+<p>The adjacency matrix is a good implementation for a graph when the
+number of edges is large. But what do we mean by large? How many edges
+would be needed to fill the matrix? Since there is one row and one
+column for every vertex in the graph, the number of edges required to
+fill the matrix is <span class="math">(|V|^2)</span>. A matrix is full when every vertex
+is connected to every other vertex. There are few real problems that
+approach this sort of connectivity. The problems we will look at in this
+chapter all involve graphs that are sparsely connected.</p>
+</div>
+
+
+
+<div>			
+<a id='fbtn1' href='The Graph Abstract Data Type.html'>Previous</a><a id='fbtn2' href='Graph Adjacency List.html'>Next</a>
+
+</div>
+	</body>
+	<!--JAVASCRIPT-->
+<script type="text/javascript">
+function setHeight(fieldId){
+    document.getElementById(fieldId).style.height = document.getElementById(fieldId).scrollHeight+'px';
+}
+setHeight('activecode');
+setHeight('stack_1ac')
+</script>
+	<script src="../clipboard.min.js"></script>
+		<script src="../highlight.pack.js"></script>
+		<script>hljs.initHighlightingOnLoad();</script>
+		<script>
+			var clipboard = new Clipboard('.btn');
+
+			clipboard.on('success', function(e) {
+				console.log(e);
+			});
+
+			clipboard.on('error', function(e) {
+				console.log(e);
+			});
+			function myFunction1() {
+				document.getElementById("btn1").innerHTML = "Copied";
+			}
+			function myFunction2() {
+				document.getElementById("btn2").innerHTML = "Copied";
+			}
+	</script>
+	
+</html>

@@ -1,0 +1,107 @@
+
+<html>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+										<link rel='stylesheet' href='css/default.css'>
+
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+	<head>
+		<link rel='stylesheet' href='../python/css/style.css'>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+	
+	<body>
+	 
+   <div class="section" id="implementing-a-queue-in-python">
+<h1>Implementing a Queue in Python</a></h1>
+<p>It is again appropriate to create a new class for the implementation of
+the abstract data type queue. As before, we will use the power and
+simplicity of the list collection to build the internal representation
+of the queue.</p>
+<p>We need to decide which end of the list to use as the rear and which to
+use as the front. The implementation shown in <a class="reference internal" href="#lst-queuecode"><span class="std std-ref">Listing 1</span></a>
+assumes that the rear is at position 0 in the list. This allows us to
+use the <code class="docutils literal"><span class="pre">insert</span></code> function on lists to add new elements to the rear of
+the queue. The <code class="docutils literal"><span class="pre">pop</span></code> operation can be used to remove the front element
+(the last element of the list). Recall that this also means that enqueue
+will be O(n) and dequeue will be O(1).</p>
+<p id="lst-queuecode"><strong>Listing 1</strong></p>
+
+			
+					<div id='code' >
+					<pre>
+				<code class='code2'>
+class Queue:
+    def __init__(self):
+        self.items = []
+
+    def isEmpty(self):
+        return self.items == []
+
+    def enqueue(self, item):
+        self.items.insert(0,item)
+
+    def dequeue(self):
+        return self.items.pop()
+
+    def size(self):
+        return len(self.items)
+q=Queue()
+q.enqueue(4)
+q.enqueue('dog')
+q.enqueue(True)
+q.enqueue('hello')
+q.enqueue('dog')
+q.enqueue(3)
+q.dequeue()
+print(q.size())		
+		
+				</code>
+				</pre>
+			</div>
+			<button class="btn" id='btn2' data-clipboard-action="copy" onclick="myFunction1()" data-clipboard-target=".code2" >Copy</button><br>
+			<em>Note: Copy and Paste Code into Compiler</em><br><b><a id='comp' href='compiler/index1.html'>&nbsp;Open Compiler&nbsp;</a></b>
+			
+			<br>
+			
+						<a id='fbtn1' href='Queue.html'>Previous</a><
+
+	</body>
+	<!--JAVASCRIPT-->
+<script type="text/javascript">
+function setHeight(fieldId){
+    document.getElementById(fieldId).style.height = document.getElementById(fieldId).scrollHeight+'px';
+}
+setHeight('activecode');
+setHeight('stack_1ac')
+</script>
+	<script src="../clipboard.min.js"></script>
+		<script src="../highlight.pack.js"></script>
+		<script>hljs.initHighlightingOnLoad();</script>
+		<script>
+			var clipboard = new Clipboard('.btn');
+
+			clipboard.on('success', function(e) {
+				console.log(e);
+			});
+
+			clipboard.on('error', function(e) {
+				console.log(e);
+			});
+			function myFunction1() {
+				document.getElementById("btn1").innerHTML = "Copied";
+			}
+			function myFunction2() {
+				document.getElementById("btn2").innerHTML = "Copied";
+			}
+	</script>
+	
+</html>

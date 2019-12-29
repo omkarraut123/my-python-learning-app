@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<body>
+<div class="_item"><h2 class="_title">Basic method overriding</h2><div class="_content"><p>Here is an example of basic overriding in Python (for the sake of clarity and compatibility with both Python 2 and 3, using <a class='doc-link' href="https://stackoverflow.com/documentation/python/419/classes/1402/new-style-vs-old-style-classes#t=20160723190241882605">new style class</a> and <code>print</code> with <code>()</code>):</p>
+<pre><code>class Parent(object):
+    def introduce(self):
+        print(&quot;Hello!&quot;)
+
+    def print_name(self):
+        print(&quot;Parent&quot;)
+    
+    
+class Child(Parent):
+    def print_name(self):
+        print(&quot;Child&quot;)
+    
+    
+p = Parent()
+c = Child()
+
+p.introduce()
+p.print_name()
+
+c.introduce()
+c.print_name()
+
+$ python basic_override.py 
+Hello!
+Parent
+Hello!
+Child
+</code></pre>
+<p>When the <code>Child</code> class is created, it inherits the methods of the <code>Parent</code> class. This means that any methods that the parent class has, the child class will also have. In the example, the <code>introduce</code> is defined for the <code>Child</code> class because it is defined for <code>Parent</code>, despite not being defined explicitly in the class definition of <code>Child</code>.</p>
+<p>In this example, the overriding occurs when <code>Child</code> defines its own <code>print_name</code> method. If this method was not declared, then <code>c.print_name()</code> would have printed <code>&quot;Parent&quot;</code>. However, <code>Child</code> has overriden the <code>Parent</code>'s definition of <code>print_name</code>, and so now upon calling <code>c.print_name()</code>, the word <code>&quot;Child&quot;</code> is printed.</p>
+
+</div></div>
+</body>
+</html>

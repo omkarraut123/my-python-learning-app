@@ -1,0 +1,189 @@
+<html>
+	<head>
+		<link rel='stylesheet' href='css/style.css'>
+								<link rel='stylesheet' href='css/default.css'>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+
+	<body>
+		<div id='contain'>
+			<h1>Lists</h1>
+			Lists are very similar to arrays. They can contain any type of variable, and they can contain as many variables as you wish. Lists can also be iterated over in a very simple manner.
+			<p>This section will give you a more deeper insight on lists
+			<p>
+		<br><br>Here is an example of how to build a list.
+			<p>Two common operations are indexing and assigning to an index position. Both of these operations take the same amount of time no matter how large the list becomes. When an operation like this is independent of the size of the list they are O(1)O(1).
+			<p>Another very common programming task is to grow a list. There are two ways to create a longer list. You can use the append method or the concatenation operator. The append method is O(1)O(1). However, the concatenation operator is O(k)O(k) where kk is the size of the list that is being concatenated. This is important for you to know because it can help you make your own programs more efficient by choosing the right tool for the job.
+
+
+			<p>Let�s look at four different ways we might generate a list of n numbers starting with 0. First we�ll try a for loop and create the list by concatenation, then we�ll use append rather than concatenation. Next, we�ll try creating the list using list comprehension and finally, and perhaps the most obvious way, using the range function wrapped by a call to the list constructor.
+
+
+
+
+			<pre>
+				<code class='code1'>
+def test1():
+    l = []
+    for i in range(1000):
+        l = l + [i]
+
+def test2():
+    l = []
+    for i in range(1000):
+        l.append(i)
+
+def test3():
+    l = [i for i in range(1000)]
+
+def test4():
+    l = list(range(1000))
+
+list=[1,'abc',2]
+					</code>
+					</pre>
+			</div>
+
+
+
+		<h2>Basic List Operations</h2>
+<p>Lists respond to the + and * operators much like strings; they mean concatenation and repetition here too, except that the result is a new list, not a string.</p>
+<p>In fact, lists respond to all of the general sequence operations we used on strings in the prior chapter.</p>
+<table class="table table-bordered" style="text-align:center;">
+<tr>
+<th style="text-align:center;width:33%">Python Expression</th>
+<th style="text-align:center;width:33%">Results</th>
+<th style="text-align:center;width:33%">Description</th>
+</tr>
+<tr>
+<td>len([1, 2, 3])</td>
+<td>3</td>
+<td>Length</td>
+</tr>
+<tr>
+<td>[1, 2, 3] + [4, 5, 6]</td>
+<td>[1, 2, 3, 4, 5, 6]</td>
+<td>Concatenation</td>
+</tr>
+<tr>
+<td>['Hi!'] * 4</td>
+<td>['Hi!', 'Hi!', 'Hi!', 'Hi!']</td>
+<td>Repetition</td>
+</tr>
+<tr>
+<td>3 in [1, 2, 3]</td>
+<td>True</td>
+<td>Membership</td>
+</tr>
+<tr>
+<td>for x in [1, 2, 3]: print x,</td>
+<td>1 2 3</td>
+<td>Iteration</td>
+</tr>
+</table>
+
+<h2>Updating Lists</h2>
+<p>You can update single or multiple elements of lists by giving the slice on the left-hand side of the assignment operator, and you can add to elements in a list with the append() method. For example -
+<div>
+<pre>
+				<code class='activecode2'>
+list = ['physics', 'chemistry', 1997, 2000];
+print "Value available at index 2 : "
+print list[2]
+list[2] = 2001;
+print "New value available at index 2 : "
+print list[2]
+					</code>
+					</pre>
+			</div>
+
+
+					<div class=code>
+
+<h2>Deleting List Elements </h2>
+<p>To remove a list element, you can use either the del statement if you know exactly which element(s) you are deleting or the remove() method if you do not know. For example -
+<div id=code>
+<pre>
+<code class="activecode3">
+list1 = ['physics', 'chemistry', 1997, 2000];
+print list1
+del list1[2];
+print "After deleting value at index 2 : "
+print list1
+</code>
+</pre>
+</div>
+<button class="btn" id='btn1' data-clipboard-action="copy" onclick="myFunction1(id)" data-clipboard-target=".activecode3" >Copy</button><br>
+
+<em>Note: Copy and Paste Code into Compiler</em><br><b><a id='comp' href='compiler/index1.html'>&nbsp;Open Compiler&nbsp;</a></b>
+
+<h2>Indexing, Slicing, and Matrixes</h2>
+<p>Because lists are sequences, indexing and slicing work the same way for lists as they do for strings.</p>
+<p>Assuming following input &minus;</p>
+<pre class="result notranslate">
+L = ['spam', 'Spam', 'SPAM!']
+</pre>
+<p></p>
+<table class="table table-bordered" style="text-align:center;">
+<tr>
+<th style="text-align:center;width:33%">Python Expression</th>
+<th style="text-align:center;width:33%">Results</th>
+<th style="text-align:center;width:33%">Description</th>
+</tr>
+<tr>
+<td>L[2]</td>
+<td>'SPAM!'</td>
+<td>Offsets start at zero</td>
+</tr>
+<tr>
+<td class="ts">L[-2]</td>
+<td class="ts">'Spam'</td>
+<td>Negative: count from the right</td>
+</tr>
+<tr>
+<td>L[1:]</td>
+<td>['Spam', 'SPAM!']</td>
+<td>Slicing fetches sections</td>
+</tr>
+</table>
+<h2>Built-in List Functions &amp; Methods</h2>
+<p>Python includes the following list functions &minus;</p>
+<table class="table table-bordered">
+<tr>
+<th style="text-align:center;width:5%">Sr.No.</th>
+<th style="text-align:center;width:95%">Function with Description</th>
+</tr>
+<tr>
+<td class="ts">1</td>
+<td><a href="/python/list_cmp.htm">cmp(list1, list2)</a>
+<p>Compares elements of both lists.</p></td>
+</tr>
+<tr>
+<td class="ts">2</td>
+<td><a href="/python/list_len.htm">len(list)</a>
+<p>Gives the total length of the list.</p></td>
+</tr>
+<tr>
+<td class="ts">3</td>
+<td><a href="/python/list_max.htm">max(list)</a>
+<p>Returns item from the list with max value.</p></td>
+</tr>
+<tr>
+<td class="ts">4</td>
+<td><a href="/python/list_min.htm">min(list)</a>
+<p>Returns item from the list with min value.</p></td>
+</tr>
+<tr>
+<td class="ts">5</td>
+<td><a href="/python/list_list.htm">list(seq)</a>
+<p>Converts a tuple into list.</p></td>
+</tr>
+</table>
+
+		</div>
+		<div>
+			<br>
+			<a id='fbtn1' href='Variables and Types.html'>Previous</a><a id='fbtn2' href='Shallow and Deep Copy.html'>Next</a>
+		</div>
+	</body>
+</html>

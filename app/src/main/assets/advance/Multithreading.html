@@ -1,0 +1,248 @@
+<!doctype html>
+<html>
+<body>
+<div class="_item"><h2 class="_title"><span style="color: #993366;">Basics of multithreading</span></h2><div class="_content"><p>Using the <code>threading</code> module, a new thread of execution may be started by creating a new <code>threading.Thread</code> and assigning it a function to execute:</p>
+<pre><code>import threading
+
+def foo():
+  print &quot;Hello threading!&quot;
+
+my_thread = threading.Thread(target=foo)
+</code></pre>
+<p>The <code>target</code> parameter references the function (or callable object) to be run.  The thread will not begin execution until <code>start</code> is called on the <code>Thread</code> object.</p>
+<p><strong><em>Starting a Thread</em></strong></p>
+<pre><code>my_thread.start() # prints 'Hello threading!'
+</code></pre>
+<p>Now that <code>my_thread</code> has run and terminated, calling <code>start</code> again will produce a <code>RuntimeError</code>. If you'd like to run your thread as a daemon, passing the <code>daemon=True</code> kwarg, or setting <code>my_thread.daemon</code> to <code>True</code> before calling <code>start()</code>, causes your <code>Thread</code> to run silently in the background as a daemon.</p>
+<p><strong><em>Joining a Thread</em></strong></p>
+<p>In cases where you split up one big job into several small ones and want to run them concurrently, but need to wait for all of them to finish before continuing, <code>Thread.join()</code> is the method you're looking for.</p>
+<p>For example, let's say you want to download several pages of a website and compile them into a single page. You'd do this:</p>
+<pre><code>import requests
+from threading import Thread
+from queue import Queue
+
+q = Queue(maxsize=20)
+def put_page_to_q(page_num):
+    q.put(requests.get('http://some-website.com/page_%s.html' % page_num)
+
+def compile(q):
+    # magic function that needs all pages before being able to be executed
+    if not q.full():
+        raise ValueError
+    else:
+        print(&quot;Done compiling!&quot;)
+
+threads = []
+for page_num in range(20):
+     t = Thread(target=requests.get, args=(page_num,))
+     t.start()
+     threads.append(t)
+
+# Next, join all threads to make sure all threads are done running before
+# we continue. join() is a blocking call (unless specified otherwise using 
+# the kwarg blocking=False when calling join)
+for t in threads:
+    t.join()
+
+# Call compile() now, since all threads have completed
+compile(q)
+</code></pre>
+<p>A closer look at how <code>join()</code> works can be found <a href="https://stackoverflow.com/a/15086113/5413116">here</a>.</p>
+<p><strong><em>Create a Custom Thread Class</em></strong></p>
+<p>Using <code>threading.Thread</code> class we can subclass new custom Thread class.
+we must override <code>run</code> method in a subclass.</p>
+<pre><code>from threading import Thread
+import time
+
+class Sleepy(Thread):
+
+    def run(self):
+        time.sleep(5)
+        print(&quot;Hello form Thread&quot;)
+
+if __name__ == &quot;__main__&quot;:
+    t = Sleepy()
+    t.start()      # start method automatic call Thread class run method.
+    # print 'The main program continues to run in foreground.'
+    t.join()
+    print(&quot;The main program continues to run in the foreground.&quot;)
+</code></pre>
+
+</div><h2 class="_title"><span style="color: #993366;">Communicating between threads</span></h2><div class="_content"><p>There are multiple threads in your code and you need to safely communicate between them.</p>
+<p>You can use a <code>Queue</code> from the <code>queue</code> library.</p>
+<pre><code>from queue import Queue
+from threading import Thread
+
+# create a data producer 
+def producer(output_queue):
+    while True:
+        data = data_computation()
+        
+        output_queue.put(data)
+
+# create a consumer
+def consumer(input_queue):
+    while True:
+        # retrieve data (blocking)
+        data = input_queue.get()
+
+        # do something with the data
+
+        # indicate data has been consumed
+        input_queue.task_done()
+</code></pre>
+<p>Creating producer and consumer threads with a shared queue</p>
+<pre><code>q = Queue()
+t1 = Thread(target=consumer, args=(q,))
+t2 = Thread(target=producer, args=(q,))
+t1.start()
+t2.start()
+</code></pre>
+
+</div><h2 class="_title"><span style="color: #993366;">Creating a worker pool</span></h2><div class="_content"><p>Using <code>threading</code> &amp; <code>queue</code>:</p>
+<pre><code>from socket import socket, AF_INET, SOCK_STREAM
+from threading import Thread
+from queue import Queue
+    
+def echo_server(addr, nworkers):
+    print('Echo server running at', addr)
+    # Launch the client workers
+    q = Queue()
+    for n in range(nworkers):
+        t = Thread(target=echo_client, args=(q,))
+        t.daemon = True
+        t.start()
+
+    # Run the server
+    sock = socket(AF_INET, SOCK_STREAM)
+    sock.bind(addr)
+    sock.listen(5)
+    while True:
+        client_sock, client_addr = sock.accept()
+        q.put((client_sock, client_addr))
+
+echo_server(('',15000), 128)
+</code></pre>
+<p>Using <code>concurrent.futures.Threadpoolexecutor</code>:</p>
+<pre><code>from socket import AF_INET, SOCK_STREAM, socket
+from concurrent.futures import ThreadPoolExecutor
+
+def echo_server(addr):
+    print('Echo server running at', addr)
+    pool = ThreadPoolExecutor(128)
+    sock = socket(AF_INET, SOCK_STREAM)
+    sock.bind(addr)
+    sock.listen(5)
+    while True:
+        client_sock, client_addr = sock.accept()
+        pool.submit(echo_client, client_sock, client_addr)
+
+echo_server(('',15000))
+</code></pre>
+<p><em>Python Cookbook, 3rd edition, by David Beazley and Brian K. Jones (O’Reilly). Copyright 2013 David Beazley and Brian Jones, 978-1-449-34037-7.</em></p>
+
+</div><h2 class="_title"><span style="color: #993366;">Advanced use of multithreads</span></h2><div class="_content"><p>This section will contain some of the most advanced examples realized using Multithreading.</p>
+    <h2><span style="color: #993366;">Advanced printer (logger)</span></h2>
+<p>A thread that prints everything is received and modifies the output according to the terminal width. The nice part is that also the &quot;already written&quot; output is modified when the width of the terminal changes.</p>
+<pre><code>#!/usr/bin/env python2
+
+import threading
+import Queue
+import time
+import sys
+import subprocess
+from backports.shutil_get_terminal_size import get_terminal_size
+
+printq = Queue.Queue()
+interrupt = False
+lines = []
+
+def main():
+
+    ptt = threading.Thread(target=printer) # Turn the printer on
+    ptt.daemon = True
+    ptt.start()
+
+    # Stupid example of stuff to print
+    for i in xrange(1,100):
+        printq.put(' '.join([str(x) for x in range(1,i)]))           # The actual way to send stuff to the printer
+        time.sleep(.5)
+
+def split_line(line, cols):
+    if len(line) &gt; cols:
+        new_line = ''
+        ww = line.split()
+        i = 0
+        while len(new_line) &lt;= (cols - len(ww[i]) - 1):
+            new_line += ww[i] + ' '
+            i += 1
+            print len(new_line)
+        if new_line == '':
+            return (line, '')
+
+        return (new_line, ' '.join(ww[i:]))
+    else:
+        return (line, '')
+
+
+def printer():
+
+    while True:
+        cols, rows = get_terminal_size() # Get the terminal dimensions
+        msg = '#' + '-' * (cols - 2) + '#\n' # Create the
+        try:
+            new_line = str(printq.get_nowait())
+            if new_line != '!@#EXIT#@!': # A nice way to turn the printer
+                                         # thread out gracefully
+                lines.append(new_line)
+                printq.task_done()
+            else:
+                printq.task_done()
+                sys.exit()
+        except Queue.Empty:
+            pass
+
+        # Build the new message to show and split too long lines
+        for line in lines:
+            res = line          # The following is to split lines which are
+                                # longer than cols.
+            while len(res) !=0:
+                toprint, res = split_line(res, cols)
+                msg += '\n' + toprint
+
+        # Clear the shell and print the new output
+        subprocess.check_call('clear') # Keep the shell clean
+        sys.stdout.write(msg)
+        sys.stdout.flush()
+        time.sleep(.5)
+</code></pre>
+
+</div><h2 class="_title"><span style="color: #993366;">Stoppable Thread with a while Loop</span></h2><div class="_content"><pre><code>import threading
+import time
+
+class StoppableThread(threading.Thread):
+    &quot;&quot;&quot;Thread class with a stop() method. The thread itself has to check
+    regularly for the stopped() condition.&quot;&quot;&quot;
+
+    def __init__(self):
+        super(StoppableThread, self).__init__()
+        self._stop_event = threading.Event()
+
+    def stop(self):
+        self._stop_event.set()
+
+    def join(self, *args, **kwargs):
+        self.stop()
+        super(StoppableThread,self).join(*args, **kwargs)
+
+    def run()
+        while not self._stop_event.is_set():
+            print(&quot;Still running!&quot;)
+            time.sleep(2)
+        print(&quot;stopped!&quot;
+</code></pre>
+
+
+</div></div>
+</body>
+</html>

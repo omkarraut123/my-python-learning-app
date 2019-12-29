@@ -1,0 +1,60 @@
+<html>
+
+	<head>
+		<link rel='stylesheet' href='css/style.css'>
+								<link rel='stylesheet' href='css/default.css'>
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+	
+	<body>
+		<div id='contain'>
+<h3>Q) Print all Numbers in a Range Divisible by a Given Number</h3>
+
+			<div id='code' >
+			<pre>
+				<code class='code1'>
+lower=int(input("Enter lower range limit:"))
+upper=int(input("Enter upper range limit:"))
+n=int(input("Enter the number to be divided by:"))
+for i in range(lower,upper+1):
+    if(i%n==0):
+        print(i)
+				</code>
+				</pre>
+			</div>
+
+			
+		<h3>Output</h3>
+					<div id='code' >
+				<code class='code1'>
+				<pre>
+Enter lower range limit:1
+Enter upper range limit:50
+Enter the number to be divided by:5
+5
+10
+15
+20
+25
+30
+35
+40
+45
+50
+
+</pre>			
+				</code>
+			</div>
+		<div>
+			<br>
+			<a id='fbtn2' href='9.html'>Next</a>
+		</div>
+					<script src="../highlight.pack.js"></script>
+		<script>hljs.initHighlightingOnLoad();</script>
+	</body>
+	
+	
+
+	
+</html>

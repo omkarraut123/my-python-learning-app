@@ -1,0 +1,176 @@
+<!doctype html>
+<html>
+<body>
+<div class="_item"><h2 class="_title">Bitwise AND</h2><div class="_content"><p>The <code>&amp;</code> operator will perform a binary <strong>AND</strong>, where a bit is copied if it exists in <strong>both</strong> operands. That means:</p>
+<pre><code># 0 &amp; 0 = 0
+# 0 &amp; 1 = 0
+# 1 &amp; 0 = 0
+# 1 &amp; 1 = 1
+
+# 60 = 0b111100
+# 30 = 0b011110
+60 &amp; 30
+# Out: 28
+# 28 = 0b11100
+
+bin(60 &amp; 30)
+# Out: 0b11100
+</code></pre>
+
+</div><h2 class="_title">Bitwise OR</h2><div class="_content"><p>The <code>|</code> operator will perform a binary &quot;or,&quot; where a bit is copied if it exists in either operand. That means:</p>
+<pre><code># 0 | 0 = 0
+# 0 | 1 = 1 
+# 1 | 0 = 1
+# 1 | 1 = 1
+
+# 60 = 0b111100 
+# 30 = 0b011110
+60 | 30
+# Out: 62
+# 62 = 0b111110
+
+bin(60 | 30)
+# Out: 0b111110
+</code></pre>
+
+</div><h2 class="_title">Bitwise XOR (Exclusive OR)</h2><div class="_content"><p>The <code>^</code> operator will perform a binary <strong>XOR</strong> in which a binary <code>1</code> is copied if and only if it is the value of exactly <strong>one</strong> operand. Another way of stating this is that the result is <code>1</code> only if the operands are different. Examples include:</p>
+<pre><code># 0 ^ 0 = 0
+# 0 ^ 1 = 1
+# 1 ^ 0 = 1
+# 1 ^ 1 = 0
+
+# 60 = 0b111100
+# 30 = 0b011110
+60 ^ 30
+# Out: 34
+# 34 = 0b100010
+
+bin(60 ^ 30)
+# Out: 0b100010
+</code></pre>
+
+</div><h2 class="_title">Bitwise Left Shift</h2><div class="_content"><p>The <code>&lt;&lt;</code> operator will perform a bitwise &quot;left shift,&quot; where the left operand's value is moved left by the number of bits given by the right operand.</p>
+<pre><code># 2 = 0b10
+2 &lt;&lt; 2
+# Out: 8
+# 8 = 0b1000
+
+bin(2 &lt;&lt; 2)
+# Out: 0b1000
+</code></pre>
+<p>Performing a left bit shift of <code>1</code> is equivalent to multiplication by <code>2</code>:</p>
+<pre><code>7 &lt;&lt; 1
+# Out: 14
+</code></pre>
+<p>Performing a left bit shift of <code>n</code> is equivalent to multiplication by <code>2**n</code>:</p>
+<pre><code>3 &lt;&lt; 4
+# Out: 48
+</code></pre>
+
+</div><h2 class="_title">Bitwise Right Shift</h2><div class="_content"><p>The <code>&gt;&gt;</code> operator will perform a bitwise &quot;right shift,&quot; where the left operand's value is moved right by the number of bits given by the right operand.</p>
+<pre><code># 8 = 0b1000
+8 &gt;&gt; 2
+# Out: 2
+# 2 = 0b10
+
+bin(8 &gt;&gt; 2)
+# Out: 0b10
+</code></pre>
+<p>Performing a right bit shift of <code>1</code> is equivalent to integer division by <code>2</code>:</p>
+<pre><code>36 &gt;&gt; 1
+# Out: 18
+
+15 &gt;&gt; 1
+# Out: 7
+</code></pre>
+<p>Performing a right bit shift of <code>n</code> is equivalent to integer division by <code>2**n</code>:</p>
+<pre><code>48 &gt;&gt; 4
+# Out: 3
+
+59 &gt;&gt; 3
+# Out: 7
+</code></pre>
+
+</div><h2 class="_title">Bitwise NOT</h2><div class="_content"><p>The <code>~</code> operator will flip all of the bits in the number. Since computers use <a href="https://en.wikipedia.org/wiki/Signed_number_representations" rel="nofollow noreferrer">signed number representations</a> — most notably, the <a href="https://en.wikipedia.org/wiki/Two%27s_complement" rel="nofollow noreferrer">two's complement notation</a> to encode negative binary numbers where negative numbers are written with a leading one (1) instead of a leading zero (0).</p>
+<p>This means that if you were using 8 bits to represent your two's-complement numbers, you would treat patterns from <code>0000 0000</code> to <code>0111 1111</code> to represent numbers from 0 to 127 and reserve <code>1xxx xxxx</code> to represent negative numbers.</p>
+<p>Eight-bit two's-complement numbers</p>
+<table><thead><tr><th>Bits</th><th>Unsigned Value</th><th>Two's-complement Value</th></tr></thead><tbody><tr><td>0000 0000</td><td>0</td><td>0</td></tr><tr><td>0000 0001</td><td>1</td><td>1</td></tr><tr><td>0000 0010</td><td>2</td><td>2</td></tr><tr><td>0111 1110</td><td>126</td><td>126</td></tr><tr><td>0111 1111</td><td>127</td><td>127</td></tr><tr><td>1000 0000</td><td>128</td><td>-128</td></tr><tr><td>1000 0001</td><td>129</td><td>-127</td></tr><tr><td>1000 0010</td><td>130</td><td>-126</td></tr><tr><td>1111 1110</td><td>254</td><td>-2</td></tr><tr><td>1111 1111</td><td>255</td><td>-1</td></tr></tbody></table>
+<p>In essence, this means that whereas <code>1010 0110</code> has an unsigned value of 166 (arrived at by adding <code>(128 * 1) + (64 * 0) + (32 * 1) + (16 * 0) + (8 * 0) + (4 * 1) + (2 * 1) + (1 * 0)</code>), it has a two's-complement value of -90 (arrived at by adding <code>(128 * 1) - (64 * 0) - (32 * 1) - (16 * 0) - (8 * 0) - (4 * 1) - (2 * 1) - (1 * 0)</code>, and complementing the value).</p>
+<p>In this way, negative numbers range down to -128 (<code>1000 0000</code>). Zero (0) is represented as <code>0000 0000</code>, and  minus one (-1) as <code>1111 1111</code>.</p>
+<p>In general, though, this means <code>~n = -n - 1</code>.</p>
+<pre><code># 0 = 0b0000 0000
+~0
+# Out: -1
+# -1 = 0b1111 1111
+    
+# 1 = 0b0000 0001
+~1
+# Out: -2
+# -2 = 1111 1110
+
+# 2 = 0b0000 0010
+~2
+# Out: -3
+# -3 = 0b1111 1101
+
+# 123 = 0b0111 1011
+~123
+# Out: -124
+# -124 = 0b1000 0100
+</code></pre>
+<p><em>Note</em>, the overall effect of this operation when applied to positive numbers can be summarized:</p>
+<blockquote>
+<p><code>~n -&gt; -|n+1|</code></p>
+</blockquote>
+<p>And then, when applied to negative numbers, the corresponding effect is:</p>
+<blockquote>
+<p><code>~-n -&gt; |n-1|</code></p>
+</blockquote>
+<p>The following examples illustrate this last rule...</p>
+<pre><code># -0 = 0b0000 0000
+~-0
+# Out: -1 
+# -1 = 0b1111 1111
+# 0 is the obvious exception to this rule, as -0 == 0 always
+    
+# -1 = 0b1000 0001
+~-1
+# Out: 0
+# 0 = 0b0000 0000
+
+# -2 = 0b1111 1110
+~-2
+# Out: 1
+# 1 = 0b0000 0001
+
+# -123 = 0b1111 1011
+~-123
+# Out: 122
+# 122 = 0b0111 1010
+</code></pre>
+
+</div><h2 class="_title">Inplace Operations</h2><div class="_content"><p>All of the Bitwise operators (except <code>~</code>) have their own in place versions</p>
+<pre><code>a = 0b001
+a &amp;= 0b010 
+# a = 0b000
+
+a = 0b001
+a |= 0b010 
+# a = 0b011
+
+a = 0b001
+a &lt;&lt;= 2 
+# a = 0b100
+
+a = 0b100
+a &gt;&gt;= 2 
+# a = 0b001
+
+a = 0b101
+a ^= 0b011 
+# a = 0b110
+</code></pre>
+
+</div></div>
+<html>
+<body>

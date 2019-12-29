@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+<body>
+<div class="_item"><h2 class="_title">Basic Introduction to Arrays</h2><div class="_content"><p>An array is a data structure that stores values of same data type. In Python, this is the main difference between arrays and lists.</p>
+<p>While python lists can contain values corresponding to different data types, arrays in python can only contain values corresponding to same data type. In this tutorial, we will understand the Python arrays with few examples.</p>
+<p>If you are new to Python, get started with the Python Introduction article.</p>
+<p>To use arrays in python language, you need to import the standard <code>array</code> module. This is because array is not a fundamental data type like strings, integer etc. Here is how you can import <code>array</code> module in python :</p>
+<pre><code>from array import *
+</code></pre>
+<p>Once you have imported the <code>array</code> module, you can declare an array. Here is how you do it:</p>
+<pre><code>arrayIdentifierName = array(typecode, [Initializers])
+</code></pre>
+<p>In the declaration above, <code>arrayIdentifierName</code> is the name of array, <code>typecode</code> lets python know the type of array and <code>Initializers</code> are the values with which array is initialized.</p>
+<p>Typecodes are the codes that are used to define the type of array values or the type of array. The table in the parameters section shows the possible values you can use when declaring an array and it's type.</p>
+<p>Here is a real world example of python array declaration :</p>
+<pre><code>my_array = array('i',[1,2,3,4])
+</code></pre>
+<p>In the example above, typecode used is <code>i</code>. This typecode represents signed integer whose size is 2 bytes.</p>
+<p>Here is a simple example of an array containing 5 integers</p>
+<pre><code>from array import *
+my_array = array('i', [1,2,3,4,5])
+for i in my_array:
+    print(i)
+# 1
+# 2
+# 3
+# 4
+# 5
+</code></pre>
+
+</div><h2 class="_title">Access individual elements through indexes</h2><div class="_content"><p>Individual elements can be accessed through indexes. Python arrays are zero-indexed. Here is an example :</p>
+<pre><code>my_array = array('i', [1,2,3,4,5])
+print(my_array[1])
+# 2
+print(my_array[2])
+# 3
+print(my_array[0])
+# 1
+</code></pre>
+
+</div><h2 class="_title">Append any value to the array using append() method</h2><div class="_content"><pre><code>my_array = array('i', [1,2,3,4,5])
+my_array.append(6)
+# array('i', [1, 2, 3, 4, 5, 6])
+</code></pre>
+<p>Note that the value <code>6</code> was appended to the existing array values.</p>
+
+</div><h2 class="_title">Insert value in an array using insert() method</h2><div class="_content"><p>We can use the <code>insert()</code> method to insert a value at any index of the array. Here is an example :</p>
+<pre><code>my_array = array('i', [1,2,3,4,5])
+my_array.insert(0,0)
+#array('i', [0, 1, 2, 3, 4, 5])
+</code></pre>
+<p>In the above example, the value 0 was inserted at index 0. Note that the first argument is the index while second argument is the value.</p>
+
+</div><h2 class="_title">Extend python array using extend() method</h2><div class="_content"><p>A python array can be extended with more than one value using <code>extend()</code> method. Here is an example :</p>
+<pre><code>my_array = array('i', [1,2,3,4,5])
+my_extnd_array = array('i', [7,8,9,10])
+my_array.extend(my_extnd_array)
+# array('i', [1, 2, 3, 4, 5, 7, 8, 9, 10])
+</code></pre>
+<p>We see that the array my_array was extended with values from <code>my_extnd_array</code>.</p>
+
+</div><h2 class="_title">Add items from list into array using fromlist() method</h2><div class="_content"><p>Here is an example:</p>
+<pre><code>my_array = array('i', [1,2,3,4,5])
+c=[11,12,13]
+my_array.fromlist(c)
+# array('i', [1, 2, 3, 4, 5, 11, 12, 13])
+</code></pre>
+<p>So we see that the values 11,12 and 13 were added from list <code>c</code> to <code>my_array</code>.</p>
+
+</div><h2 class="_title">Remove any array element using remove() method</h2><div class="_content"><p>Here is an example :</p>
+<pre><code>my_array = array('i', [1,2,3,4,5])
+my_array.remove(4)
+# array('i', [1, 2, 3, 5])
+</code></pre>
+<p>We see that the element 4 was removed from the array.</p>
+
+</div><h2 class="_title">Remove last array element using pop() method</h2><div class="_content"><p><code>pop</code> removes the last element from the array. Here is an example :</p>
+<pre><code>my_array = array('i', [1,2,3,4,5])
+my_array.pop()
+# array('i', [1, 2, 3, 4])
+</code></pre>
+<p>So we see that the last element (<code>5</code>) was popped out of array.</p>
+
+</div><h2 class="_title">Fetch any element through its index using index() method</h2><div class="_content"><p><code>index()</code> returns first index of the matching value. Remember that arrays are zero-indexed.</p>
+<pre><code>my_array = array('i', [1,2,3,4,5])
+print(my_array.index(5))
+# 5
+my_array = array('i', [1,2,3,3,5])
+print(my_array.index(3))
+# 3
+</code></pre>
+<p>Note in that second example that only one index was returned, even though the value exists twice in the array</p>
+
+</div><h2 class="_title">Reverse a python array using reverse() method</h2><div class="_content"><p>The <code>reverse()</code> method does what the name says it will do - reverses the array. Here is an example :</p>
+<pre><code>my_array = array('i', [1,2,3,4,5])
+my_array.reverse()
+# array('i', [5, 4, 3, 2, 1])
+</code></pre>
+
+</div><h2 class="_title">Get array buffer information through buffer_info() method</h2><div class="_content"><p>This method provides you the array buffer start address in memory and number of elements in array. Here is an example:</p>
+<pre><code>my_array = array('i', [1,2,3,4,5])
+my_array.buffer_info()
+(33881712, 5)
+</code></pre>
+
+</div><h2 class="_title">Check for number of occurrences of an element using count() method</h2><div class="_content"><p><code>count()</code> will return the number of times and element appears in an array. In the following example we see that the value <code>3</code> occurs twice.</p>
+<pre><code>my_array = array('i', [1,2,3,3,5])
+my_array.count(3)
+# 2
+</code></pre>
+
+</div><h2 class="_title">Convert array to string using tostring() method</h2><div class="_content"><p><code>tostring()</code> converts the array to a string.</p>
+<pre><code>my_char_array = array('c', ['g','e','e','k'])
+# array('c', 'geek')
+print(my_char_array.tostring())
+# geek
+</code></pre>
+
+</div><h2 class="_title">Convert array to a python list with same elements using tolist() method</h2><div class="_content"><p>When you need a Python <code>list</code> object, you can utilize the <code>tolist()</code> method to convert your array to a list.</p>
+<pre><code>my_array = array('i', [1,2,3,4,5])
+c = my_array.tolist()
+# [1, 2, 3, 4, 5]
+</code></pre>
+
+</div><h2 class="_title">Append a string to char array using fromstring() method</h2><div class="_content"><p>You are able to append a string to a character array using <code>fromstring()</code></p>
+<pre><code>my_char_array = array('c', ['g','e','e','k'])
+my_char_array.fromstring(&quot;stuff&quot;)
+print(my_char_array)
+#array('c', 'geekstuff')
+</code></pre>
+
+</div></div>
+</body>
+</html>

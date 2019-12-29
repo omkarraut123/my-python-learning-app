@@ -1,0 +1,234 @@
+
+<html>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+										<link rel='stylesheet' href='css/default.css'>
+
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+	<head>
+		<link rel='stylesheet' href='../python/css/style.css'>
+		<link rel='stylesheet' href='../python/css/default.css'>
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+	
+	<body>
+	 
+   <div class="section" id="implementing-a-queue-in-python">
+<h1>Nodes and References</a></h1>
+<p>Our second method to represent a tree uses nodes and references. In this
+case we will define a class that has attributes for the root value, as
+well as the left and right subtrees. Since this representation more
+closely follows the object-oriented programming paradigm, we will
+continue to use this representation for the remainder of the chapter.</p>
+<p>Using nodes and references, we might think of the tree as being
+structured like the one shown in <a class="reference internal" href="#fig-treerec"><span class="std std-ref">Figure 2</span></a>.</p>
+<div class="figure align-center" id="id1">
+<span id="fig-treerec"></span><img alt="image" src="images/treerecs.png" />
+<p class="caption"><span class="caption-text">Figure 2: A Simple Tree Using a Nodes and References Approach</span></p>
+</div>
+
+<pre>
+<code>
+class BinaryTree:
+    def __init__(self,rootObj):
+        self.key = rootObj
+        self.leftChild = None
+        self.rightChild = None
+</code>
+</pre>
+
+<p>Notice that above, the constructor function expects to
+get some kind of object to store in the root. Just like you can store
+any object you like in a list, the root object of a tree can be a
+reference to any object. For our early examples, we will store the name
+of the node as the root value. Using nodes and references to represent
+the tree in <a class="reference internal" href="#fig-treerec"><span class="std std-ref">Figure 2</span></a>, we would create six instances of the
+BinaryTree class.</p>
+<p>Next let’s look at the functions we need to build the tree beyond the
+root node. To add a left child to the tree, we will create a new binary
+tree object and set the <code class="docutils literal"><span class="pre">left</span></code> attribute of the root to refer to this
+new object
+
+<pre>
+<code>
+def insertLeft(self,newNode):
+    if self.leftChild == None:
+        self.leftChild = BinaryTree(newNode)
+    else:
+        t = BinaryTree(newNode)
+        t.leftChild = self.leftChild
+        self.leftChild = t
+		</code>
+</pre>
+
+<p>We must consider two cases for insertion. The first case is
+characterized by a node with no existing left child. When there is no
+left child, simply add a node to the tree. The second case is
+characterized by a node with an existing left child. In the second
+case, we insert a node and push the existing child down one level in the
+tree. .</p>
+<p>The code for <code class="docutils literal"><span class="pre">insertRight</span></code> must consider a symmetric set of cases.
+There will either be no right child, or we must insert the node between
+the root and an existing right child. The insertion code is shown in
+</div>
+
+<pre>
+<code>
+def insertRight(self,newNode):
+    if self.rightChild == None:
+        self.rightChild = BinaryTree(newNode)
+    else:
+        t = BinaryTree(newNode)
+        t.rightChild = self.rightChild
+        self.rightChild = t
+</code>		
+</pre>
+		
+<p>To round out the definition for a simple binary tree data structure, we
+will write accessor methods for the left and right children, as well as
+the root values.</p>
+
+<pre>
+<code>
+def getRightChild(self):
+    return self.rightChild
+
+def getLeftChild(self):
+    return self.leftChild
+
+def setRootVal(self,obj):
+    self.key = obj
+
+def getRootVal(self):
+    return self.key
+</code>
+</pre>
+
+<p>Now that we have all the pieces to create and manipulate a binary tree,
+let’s use them to check on the structure a bit more. Let’s make a simple
+tree with node a as the root, and add nodes b and c as children. The code given below creates the tree and looks at the some of the
+values stored in <code class="docutils literal"><span class="pre">key</span></code>, <code class="docutils literal"><span class="pre">left</span></code>, and <code class="docutils literal"><span class="pre">right</span></code>. Notice that both the
+left and right children of the root are themselves distinct instances of
+the <code class="docutils literal"><span class="pre">BinaryTree</span></code> class. As we said in our original recursive
+definition for a tree, this allows us to treat any child of a binary
+tree as a binary tree itself.</p>	
+
+
+			
+					<div id='code' >
+					<pre>
+				<code class='code2'>
+class BinaryTree:
+    def __init__(self,rootObj):
+        self.key = rootObj
+        self.leftChild = None
+        self.rightChild = None
+
+    def insertLeft(self,newNode):
+        if self.leftChild == None:
+            self.leftChild = BinaryTree(newNode)
+        else:
+            t = BinaryTree(newNode)
+            t.leftChild = self.leftChild
+            self.leftChild = t
+
+    def insertRight(self,newNode):
+        if self.rightChild == None:
+            self.rightChild = BinaryTree(newNode)
+        else:
+            t = BinaryTree(newNode)
+            t.rightChild = self.rightChild
+            self.rightChild = t
+
+
+    def getRightChild(self):
+        return self.rightChild
+
+    def getLeftChild(self):
+        return self.leftChild
+
+    def setRootVal(self,obj):
+        self.key = obj
+
+    def getRootVal(self):
+        return self.key
+
+
+r = BinaryTree('a')
+print(r.getRootVal())
+print(r.getLeftChild())
+r.insertLeft('b')
+print(r.getLeftChild())
+print(r.getLeftChild().getRootVal())
+r.insertRight('c')
+print(r.getRightChild())
+print(r.getRightChild().getRootVal())
+r.getRightChild().setRootVal('hello')
+print(r.getRightChild().getRootVal())
+		
+				</code>
+				</pre>
+			</div>
+			<button class="btn" id='btn2' data-clipboard-action="copy" onclick="myFunction1()" data-clipboard-target=".code2" >Copy</button><br>
+			<em>Note: Copy and Paste Code into Compiler</em><br><b><a id='comp' href='../python/compiler/index1.html'>&nbsp;Open Compiler&nbsp;</a></b>
+			
+			<br>
+			<br>
+			<b>output</b>
+			<pre>
+			<code>
+			 
+a
+None
+<__main__.BinaryTree object>
+b
+<__main__.BinaryTree object>
+c
+hello
+</code>
+</pre>
+			
+<div>			
+<a id='fbtn1' href='List Representation of Trees.html'>Previous</a><a id='fbtn2' href='Tree Traversal.html'>Next</a>
+
+</div>
+	</body>
+	<!--JAVASCRIPT-->
+<script type="text/javascript">
+function setHeight(fieldId){
+    document.getElementById(fieldId).style.height = document.getElementById(fieldId).scrollHeight+'px';
+}
+setHeight('activecode');
+setHeight('stack_1ac')
+</script>
+	<script src="../clipboard.min.js"></script>
+		<script src="../highlight.pack.js"></script>
+		<script>hljs.initHighlightingOnLoad();</script>
+		<script>
+			var clipboard = new Clipboard('.btn');
+
+			clipboard.on('success', function(e) {
+				console.log(e);
+			});
+
+			clipboard.on('error', function(e) {
+				console.log(e);
+			});
+			function myFunction1() {
+				document.getElementById("btn1").innerHTML = "Copied";
+			}
+			function myFunction2() {
+				document.getElementById("btn2").innerHTML = "Copied";
+			}
+	</script>
+	
+</html>

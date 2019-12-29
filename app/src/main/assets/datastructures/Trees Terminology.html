@@ -1,0 +1,131 @@
+
+<html>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+										<link rel='stylesheet' href='css/default.css'>
+
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+	<head>
+		<link rel='stylesheet' href='../python/css/style.css'>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+	
+	<body>
+	 
+   <div class="section" id="implementing-a-queue-in-python">
+<h1>Trees Terminology</a></h1>
+<dl class="docutils">
+<dl class="docutils">
+<dt>Node</dt>
+<dd>A node is a fundamental part of a tree. It can have a name, which we
+call the “key.” A node may also have additional information. We call
+this additional information the “payload.” While the payload
+information is not central to many tree algorithms, it is often
+critical in applications that make use of trees.</dd>
+<dt>Edge</dt>
+<dd>An edge is another fundamental part of a tree. An edge connects two
+nodes to show that there is a relationship between them. Every node
+(except the root) is connected by exactly one incoming edge from
+another node. Each node may have several outgoing edges.</dd>
+<dt>Root</dt>
+<dd>The root of the tree is the only node in the tree that has no
+incoming edges. In Figure&nbsp;<a class="reference internal" href="ExamplesofTrees.html#fig-filetree"><span class="std std-ref">Figure 2</span></a>, / is the root of the tree.</dd>
+<dt>Path</dt>
+<dd>A path is an ordered list of nodes that are connected by edges. For
+example,
+Mammal <span class="math">\(\rightarrow\)</span> Carnivora <span class="math">\(\rightarrow\)</span> Felidae <span class="math">\(\rightarrow\)</span> Felis <span class="math">\(\rightarrow\)</span> Domestica
+is a path.</dd>
+<dt>Children</dt>
+<dd>The set of nodes <span class="math">\(c\)</span> that have incoming edges from the same
+node to are said to be the children of that node. In Figure
+<a class="reference internal" href="ExamplesofTrees.html#fig-filetree"><span class="std std-ref">Figure 2</span></a>, nodes log/, spool/, and yp/ are the children of node
+var/.</dd>
+<dt>Parent</dt>
+<dd>A node is the parent of all the nodes it connects to with outgoing
+edges. In <a class="reference internal" href="ExamplesofTrees.html#fig-filetree"><span class="std std-ref">Figure 2</span></a> the node var/ is the parent of nodes
+log/, spool/, and yp/.</dd>
+<dt>Sibling</dt>
+<dd>Nodes in the tree that are children of the same parent are said to
+be siblings. The nodes etc/ and usr/ are siblings in the filesystem
+tree.</dd>
+<dt>Subtree</dt>
+<dd>A subtree is a set of nodes and edges comprised of a parent and all
+the descendants of that parent.</dd>
+<dt>Leaf Node</dt>
+<dd>A leaf node is a node that has no children. For example, Human and
+Chimpanzee are leaf nodes in <a class="reference internal" href="ExamplesofTrees.html#fig-biotree"><span class="std std-ref">Figure 1</span></a>.</dd>
+<dt>Level</dt>
+<dd>The level of a node <span class="math">\(n\)</span> is the number of edges on the path
+from the root node to <span class="math">\(n\)</span>. For example, the level of the
+Felis node in <a class="reference internal" href="ExamplesofTrees.html#fig-biotree"><span class="std std-ref">Figure 1</span></a> is five. By definition, the level
+of the root node is zero.</dd>
+<dt>Height</dt>
+<dd>The height of a tree is equal to the maximum level of any node in
+the tree. The height of the tree in <a class="reference internal" href="ExamplesofTrees.html#fig-filetree"><span class="std std-ref">Figure 2</span></a> is two.</dd>
+</dl>
+<p>With the basic vocabulary now defined, we can move on to a formal
+definition of a tree. In fact, we will provide two definitions of a
+tree. One definition involves nodes and edges. The second definition,
+which will prove to be very useful, is a recursive definition.</p>
+A tree consists of a set of nodes and a set of
+edges that connect pairs of nodes. A tree has the following properties:</p>
+<ol class="simple">
+<li>One node of the tree is designated as the root node.</li>
+<li>Every node <span class="math">\(n\)</span>, except the root node, is connected by an edge
+from exactly one other node <span class="math">\(p\)</span>, where <span class="math">\(p\)</span> is the
+parent of <span class="math">\(n\)</span>.</li>
+<li>A unique path traverses from the root to each node.</li>
+<li>If each node in the tree has a maximum of two children, we say that
+the tree is a <strong>binary tree</strong>.</li>
+</ol>
+<p><a class="reference internal" href="#fig-nodeedgetree"><span class="std std-ref">Figure 3</span></a> illustrates a tree that fits definition one.
+The arrowheads on the edges indicate the direction of the connection.</p>
+
+<div class="figure align-center" id="id1">
+<span id="fig-nodeedgetree"></span><img alt="image" src="images/treedef1.png" />
+<p class="caption"><span class="caption-text">Figure 3: A Tree Consisting of a Set of Nodes and Edges</span></p>
+</div>					
+
+<div>			
+<a id='fbtn1' href='Trees.html'>Previous</a><a id='fbtn2' href='List Representation of Trees.html'>Next</a>
+
+</div>
+	</body>
+	<!--JAVASCRIPT-->
+<script type="text/javascript">
+function setHeight(fieldId){
+    document.getElementById(fieldId).style.height = document.getElementById(fieldId).scrollHeight+'px';
+}
+setHeight('activecode');
+setHeight('stack_1ac')
+</script>
+	<script src="../clipboard.min.js"></script>
+		<script src="../highlight.pack.js"></script>
+		<script>hljs.initHighlightingOnLoad();</script>
+		<script>
+			var clipboard = new Clipboard('.btn');
+
+			clipboard.on('success', function(e) {
+				console.log(e);
+			});
+
+			clipboard.on('error', function(e) {
+				console.log(e);
+			});
+			function myFunction1() {
+				document.getElementById("btn1").innerHTML = "Copied";
+			}
+			function myFunction2() {
+				document.getElementById("btn2").innerHTML = "Copied";
+			}
+	</script>
+	
+</html>

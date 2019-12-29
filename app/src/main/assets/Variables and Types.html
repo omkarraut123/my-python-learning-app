@@ -1,0 +1,256 @@
+<html>
+
+	<head>
+		<link rel='stylesheet' href='css/style.css'>
+						<link rel='stylesheet' href='css/default.css'>
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+	
+	<body>
+		<div id='contain'>
+			<h1>Variables and Types</h1>
+	It's a lot easier in Python. There is no declaration of variables required in Python. It's not even
+possible. If there is need of a variable, you think of a name and start using it as a variable.
+<br><br>
+Another remarkable aspect of Python: Not only the value of a variable may change during program 
+execution but the type as well. You can assign an integer value to a variable, use it as an integer
+for a while and then assign a string to the same variable.
+<br>In the following line of code, we assign the value 42 to a variable:
+<pre>
+i = 42
+</pre>
+The equal "=" sign in the assignment shouldn't be seen as "is equal to". It should be "read" or
+interpreted as "is set to", meaning in our example "the variable i is set to 42". Now we will increase
+the value of this variable by 1: 
+<pre>
+<code>
+>> i = i + 1
+>>> print(i)
+43
+>>> 
+</code>
+</pre>
+As we have said above, the type of a variable can change during the execution of a script. Or to be precise: 
+A new object, which can be of any type, will be assigned to it. We illustrate this in our following example: <br> 
+
+<pre>
+<code>
+i = 42			# data type is implicitly set to integer
+i = 42 + 0.11		# data type is changed to float
+i = "forty"		# and now it will be a string 
+</code> 
+</pre>
+
+
+Python automatically takes care of the physical representation for the different data types, i.e.
+an integer values will be stored in a different memory location than a float or a string.
+
+
+
+
+
+<h4>Object References</h4>
+
+We want to take a closer look on variables now. 
+Python variables are references to objects, but the actual data is contained in the objects:
+
+As variables are pointing to objects and objects can be of arbitrary data type, variables cannot have types associated with them. This is a huge difference to C, C++ or Java, where a variable is  associated with a fixed data type. This association can't be changed as long as the program is running. 
+Therefore it is possible to write code like the following in Python:
+
+<pre>
+<code>
+>>> x = 42
+>>> print(x)
+42
+>>> x = "Now x references a string"
+>>> print(x)
+Now x references a string
+</code>
+</pre>
+
+We want to demonstrate something else now. Let's look at the following code: 
+
+<pre>
+<code>
+>>> x = 42
+>>> y = x
+</code>
+</pre>
+
+We created an integer object 42 and assigned it to the variable x. After this we assigned x to the variable y. This means that both variables reference the same object. The following picture illustrates this:
+
+
+What will happen, when we execute 
+<pre><code>y = 78</code></pre> 
+after the previous code? 
+Python will create a new integer object with the content 78 and then the variable y will reference this newly created  object, as we can see in the following picture: 
+
+Most probably, we will see further changes to the variables in the flow of our program. There might be for example a string assignment to the variable x. The previously integer object "42" will be orphaned after this assignment. It will be removed by Python, because no other variable
+is referencing it.
+<br>
+
+<h3>id Function</h3>
+
+You may ask yourself, how can we see or prove that x and y really reference the same object after 
+the assignment <code>y = x</code>
+of our previous example?
+<br><br>
+The identity function id() can be used for this purpose. Every instance (object or 
+variable) has an identity, i.e. an integer which is unique within the script or program, i.e. 
+other objects have different identities.
+<br>So, let's have a look at our previous example and how the identities will change:
+<pre>
+<code>
+>>> x = 42
+>>> id(x)
+10107136
+>>> y = x
+>>> id(x), id(y)
+(10107136, 10107136)
+>>> y = 78
+>>> id(x), id(y)
+(10107136, 10108288)
+>>> 
+</code>
+</pre>
+<br><br>
+
+
+<h2>Valid Variable Names</h2>
+
+The naming of variables follows the more general concept of an identifier. A Python identifier is a name used to identify a variable, function, class, module or other object. 
+<br>
+A variable name and an identifier can consist of the uppercase letters "A" through "Z", the lowercase letters "a" through "z" , the underscore _ and, except for the first character, the digits 0 through 9.
+
+Python 3.x is based on Unicode. This means that variable names and identifier names can additionally contain Unicode characters as well. But in Python 2, identifiers can only be ASCII letters, numbers and underscores.
+
+
+<br>
+Identifiers are unlimited in length. Case is significant. The fact that identifier
+names are case-sensitive can cause problems to some Windows users, where file names are case-insensitive for example.
+<br><br>
+
+			<h2> Standard Data Types</h2>
+			<ul class="list">
+<li>Numbers</li>
+<li>String</li>
+<li>List</li>
+<li>Tuple</li>
+<li>Dictionary</li>
+</ul>
+			<h2>Numbers</h2>
+			Python supports four types of numbers - int,long,float and complex
+			<br>For example 
+			<br>3(int),4.0(float),51924361L(long),3.14j(complex)
+
+			<p>A complex number consists of an ordered pair of real floating-point numbers denoted by x + yj, where x and y are the real numbers and j is the imaginary unit.
+			<br><br>To define an integer, use the following syntax:
+			
+			<div>
+			<pre>
+				<code>
+myint = 7</code></pre>
+			</div>
+			
+			<br>To define a floating point number, you may use one of the following notations:
+			
+				<pre><code>
+myfloat = 7.0
+myfloat = float(7)
+				</code></pre>
+			<h2>Strings</h2>
+			Strings are defined either with a single quote or a double quotes.
+			
+			<div>
+			<pre>
+				<code>
+mystring = 'hello'
+mystring = "hello"</code>
+</pre>
+			</div>
+			<br>There are additional variations on defining strings that make it easier to include things such as carriage returns, backslashes and Unicode characters. These are beyond the scope of this tutorial, but are covered in the Python documentation.
+
+			<br><br>Simple operators can be executed on numbers and strings:
+			
+			<div>
+			<pre>
+				<code>
+one = 1
+two = 2
+three = one + two
+hello = "hello"
+world = "world"
+helloworld = hello + " " + world</code>
+</pre>
+			</div>
+			<br>Assignments can be done on more than one variable "simultaneously" on the same line like this
+			<div id='code'>
+				<pre><code>a, b = 3, 4</code></pre>
+			</div>
+<h2>Lists</h2>
+<p>Lists are the most versatile of Python's compound data types. A list contains items separated by commas and enclosed within square brackets ([]). To some extent, lists are similar to arrays in C. One difference between them is that all the items belonging to a list can be of different data type.</p>
+<p>The values stored in a list can be accessed using the slice operator ([ ] and [:]) with indexes starting at 0 in the beginning of the list and working their way to end -1. The plus (+) sign is the list concatenation operator, and the asterisk (*) is the repetition operator. For example &minus;</p>			
+<div class=code>
+<pre>
+<code class="activecode1">
+list = [ 'abcd', 786 , 2.23, 'john', 70.2 ]
+tinylist = [123, 'john']
+
+print list          # Prints complete list
+print list[0]       # Prints first element of the list
+print list[1:3]     # Prints elements starting from 2nd till 3rd 
+print list[2:]      # Prints elements starting from 3rd element
+print tinylist * 2  # Prints list two times
+print list + tinylist # Prints concatenated lists
+</code>
+</pre>
+</div>
+
+<h2>Tuples</h2>
+<p>A tuple is another sequence data type that is similar to the list. A tuple consists of a number of values separated by commas. Unlike lists, however, tuples are enclosed within parentheses.</p>
+<p>The main differences between lists and tuples are: Lists are enclosed in brackets ( [ ] ) and their elements and size can be changed, while tuples are enclosed in parentheses ( ( ) ) and cannot be updated. Tuples can be thought of as <b>read-only</b> lists. For example
+		</div>
+		
+		<div class=code>
+<pre>
+<code class="activecode2">
+tuple = ( 'abcd', 786 , 2.23, 'john'  )
+
+print tuple           # Prints complete list
+print tuple[0]        # Prints first element of the list
+print tuple[1:3]      # Prints elements starting from 2nd till 3rd 
+print tuple[2:]       # Prints elements starting from 3rd element
+</code>
+</pre>
+</div>
+<button class="btn" id='btn1' data-clipboard-action="copy" onclick="myFunction1(id)" data-clipboard-target=".activecode2" >Copy</button><br>
+
+
+
+		
+		<div>
+			<br>
+			<a id='fbtn1' href='Introduction.html'>Previous</a><a id='fbtn2' href='Lists.html'>Next</a>
+		</div>
+	</body>
+	
+	<script src="../clipboard.min.js"></script>
+			<script src="../highlight.pack.js"></script>
+		<script>hljs.initHighlightingOnLoad();</script>
+		<script>
+			var clipboard = new Clipboard('.btn');
+
+			clipboard.on('success', function(e) {
+				console.log(e);
+			});
+
+			clipboard.on('error', function(e) {
+				console.log(e);
+			});
+			function myFunction1(x) {
+				document.getElementById(x).innerHTML = "Copied";
+			}
+		
+	</script>
+</html>

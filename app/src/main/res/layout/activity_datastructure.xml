@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Datastructure">
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="218dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="-17dp"
+        android:src="@mipmap/header_ds" />
+
+    <ListView
+        android:id="@+id/data_structure"
+        android:layout_width="match_parent"
+        android:layout_height="502dp"
+        android:layout_alignParentBottom="true"
+        android:divider="@color/sky"
+        android:dividerHeight="10.0px"
+        android:paddingTop="30dp"
+        android:paddingBottom="30dp">
+
+    </ListView>
+
+</RelativeLayout>

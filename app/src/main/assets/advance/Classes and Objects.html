@@ -1,0 +1,83 @@
+<html>
+	<head>
+		<link rel='stylesheet' href='css/style.css'>
+								<link rel='stylesheet' href='css/default.css'>
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+	
+	<body>
+		<div id='contain'>
+			<h1>Classes and Objects</h1>
+Objects are an encapsulation of variables and functions into a single entity. Objects get their variables and functions from classes. Classes are essentially a template to create your objects.
+
+<br>A very basic class would look something like this:
+			
+			<div >
+				<pre><code>class MyClass:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;variable = "blah"
+
+def function(self):
+&nbsp;&nbsp;&nbsp;&nbsp;print "This is a message inside the class."</code></pre>
+			</div>
+			<br>We'll explain why you have to include that "self" as a parameter a little bit later. First, to assign the above class(template) to an object you would do the following:
+			<div >
+				<pre><code>myobjectx = MyClass()</code></pre>
+			</div>
+			<br>Now the variable "myobjectx" holds an object of the class "MyClass" that contains the variable and the function defined within the class called "MyClass".
+
+			<h2>Accessing Object Variables</h2>
+			To access the variable inside of the newly created object "myobjectx" you would do the following:
+
+			<div>
+				<pre><code>myobjectx.variable</code></pre>
+			</div>
+			
+			<br>So for instance the below would output the string "blah":
+			<div>
+			<pre><code>print myobjectx.variable</code></pre>
+		</div>
+		
+		<h2>Accessing Object Functions</h2>
+		To access a function inside of an object you use notation similar to accessing a variable:
+			<div>
+			<pre><code>myobjectx.function()</code></pre>
+		</div>
+		<br>
+			<div id='code'>
+			<pre><code class='code1'>class MyClass:
+&nbsp;&nbsp;&nbsp;&nbsp;variable = "blah"
+&nbsp;&nbsp;&nbsp;&nbsp;def function(self):
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print "This is a message inside the class."
+myobjectx = MyClass()
+print myobjectx.variable
+myobjectx.function()
+
+			</code></pre><button class="btn" id='btn1' data-clipboard-action="copy" onclick="myFunction1()" data-clipboard-target=".code1" >Copy</button>
+			</div>
+			
+			
+			
+			
+		</div>
+
+	</body>
+		<script src="../clipboard.min.js"></script>
+			<script src="../highlight.pack.js"></script>
+		<script>hljs.initHighlightingOnLoad();</script>
+		<script>
+			var clipboard = new Clipboard('.btn');
+
+			clipboard.on('success', function(e) {
+				console.log(e);
+			});
+
+			clipboard.on('error', function(e) {
+				console.log(e);
+			});
+			function myFunction1() {
+				document.getElementById("btn1").innerHTML = "Copied";
+			}
+			
+	</script>
+</html>

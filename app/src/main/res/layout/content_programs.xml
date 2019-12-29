@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".programs"
+    tools:showIn="@layout/activity_programs">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="218dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="-17dp"
+                android:src="@mipmap/header_code" />
+
+            <ListView
+                android:divider="@color/sky"
+                android:dividerHeight="10.0px"
+                android:id="@+id/program_listview"
+                android:layout_width="match_parent"
+                android:layout_height="470dp">
+
+
+            </ListView>
+
+        </LinearLayout>
+
+</RelativeLayout>

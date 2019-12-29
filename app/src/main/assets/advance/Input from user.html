@@ -1,0 +1,189 @@
+<html>
+<body>
+
+<div class="_item"><h2 class="_title">Using input() and raw_input()</h2><div class="_content"><div class='version-specific' data-version-json='[{&quot;Type&quot;:&quot;GreaterThanOrEqual&quot;,&quot;GroupName&quot;:&quot;Python 2.x&quot;,&quot;VersionName&quot;:&quot;2.3&quot;}]'><span class='version-name'>Python 2.x</span><span class='version-row'><span class='version'><span class='version-constraint version-kind-greaterthanorequal'>2.3</span></span></span><div class='version-specific-content'>
+<p><code>raw_input</code> will wait for the user to enter text and then return the result as a string.</p>
+<pre><code>foo = raw_input(&quot;Put a message here that asks the user for input&quot;)
+</code></pre>
+<p>In the above example <code>foo</code> will store whatever input the user provides.</p>
+</div></div>
+<div class='version-specific' data-version-json='[{&quot;Type&quot;:&quot;GreaterThanOrEqual&quot;,&quot;GroupName&quot;:&quot;Python 3.x&quot;,&quot;VersionName&quot;:&quot;3.0&quot;}]'><span class='version-name'>Python 3.x</span><span class='version-row'><span class='version'><span class='version-constraint version-kind-greaterthanorequal'>3.0</span></span></span><div class='version-specific-content'>
+<p><code>input</code> will wait for the user to enter text and then return the result as a string.</p>
+<pre><code>foo = input(&quot;Put a message here that asks the user for input&quot;)
+</code></pre>
+<p>In the above example <code>foo</code> will store whatever input the user provides.</p>
+</div></div>
+
+</div><h2 class="_title">Using the print function</h2><div class="_content"><div class='version-specific' data-version-json='[{&quot;Type&quot;:&quot;GreaterThanOrEqual&quot;,&quot;GroupName&quot;:&quot;Python 3.x&quot;,&quot;VersionName&quot;:&quot;3.0&quot;}]'><span class='version-name'>Python 3.x</span><span class='version-row'><span class='version'><span class='version-constraint version-kind-greaterthanorequal'>3.0</span></span></span><div class='version-specific-content'>
+<p>In Python 3, print functionality is in the form of a function:</p>
+<pre><code>print(&quot;This string will be displayed in the output&quot;)
+# This string will be displayed in the output
+
+print(&quot;You can print \n escape characters too.&quot;)
+# You can print escape characters too.
+</code></pre>
+</div></div>
+<div class='version-specific' data-version-json='[{&quot;Type&quot;:&quot;GreaterThanOrEqual&quot;,&quot;GroupName&quot;:&quot;Python 2.x&quot;,&quot;VersionName&quot;:&quot;2.3&quot;}]'><span class='version-name'>Python 2.x</span><span class='version-row'><span class='version'><span class='version-constraint version-kind-greaterthanorequal'>2.3</span></span></span><div class='version-specific-content'>
+<p>In Python 2, print was originally a statement, as shown below.</p>
+<pre><code>print &quot;This string will be displayed in the output&quot;
+# This string will be displayed in the output
+
+print &quot;You can print \n escape characters too.&quot;
+# You can print escape characters too.
+</code></pre>
+<p>Note: using <code>from __future__ import print_function</code> in Python 2 will allow users to use the <code>print()</code> function the same as Python 3 code. This is only available in Python 2.6 and above.</p>
+</div></div>
+
+</div><h2 class="_title">Function to prompt user for a number</h2><div class="_content"><pre><code>def input_number(msg, err_msg=None):
+    while True:
+        try:
+            return float(raw_input(msg))
+        except ValueError:
+            if err_msg is not None:
+                print(err_msg)
+
+
+def input_number(msg, err_msg=None):
+    while True:
+        try:
+            return float(input(msg))
+        except ValueError:
+            if err_msg is not None:
+                print(err_msg)
+</code></pre>
+<p>And to use it:</p>
+<pre><code>user_number = input_number(&quot;input a number: &quot;, &quot;that's not a number!&quot;)
+</code></pre>
+<p>Or, if you do not want an &quot;error message&quot;:</p>
+<pre><code>user_number = input_number(&quot;input a number: &quot;)
+</code></pre>
+
+</div><h2 class="_title">Printing a string without a newline at the end</h2><div class="_content"><div class='version-specific' data-version-json='[{&quot;Type&quot;:&quot;GreaterThanOrEqual&quot;,&quot;GroupName&quot;:&quot;Python 2.x&quot;,&quot;VersionName&quot;:&quot;2.3&quot;}]'><span class='version-name'>Python 2.x</span><span class='version-row'><span class='version'><span class='version-constraint version-kind-greaterthanorequal'>2.3</span></span></span><div class='version-specific-content'>
+<p>In Python 2.x, to continue a line with <code>print</code>, end the <code>print</code> statement with a comma. It will automatically add a space.</p>
+<pre><code>print &quot;Hello,&quot;,
+print &quot;World!&quot;
+# Hello, World!
+</code></pre>
+</div></div>
+<div class='version-specific' data-version-json='[{&quot;Type&quot;:&quot;GreaterThanOrEqual&quot;,&quot;GroupName&quot;:&quot;Python 3.x&quot;,&quot;VersionName&quot;:&quot;3.0&quot;}]'><span class='version-name'>Python 3.x</span><span class='version-row'><span class='version'><span class='version-constraint version-kind-greaterthanorequal'>3.0</span></span></span><div class='version-specific-content'>
+<p>In Python 3.x, the <code>print</code> function has an optional <code>end</code> parameter that is what it prints at the end of the given string. By default it's a newline character, so equivalent to this:</p>
+<pre><code>print(&quot;Hello, &quot;, end=&quot;\n&quot;)
+print(&quot;World!&quot;)
+# Hello, 
+# World!
+</code></pre>
+<p>But you could pass in other strings</p>
+<pre><code>print(&quot;Hello, &quot;, end=&quot;&quot;)
+print(&quot;World!&quot;)
+# Hello, World!
+
+print(&quot;Hello, &quot;, end=&quot;&lt;br&gt;&quot;)
+print(&quot;World!&quot;)
+# Hello, &lt;br&gt;World!
+
+print(&quot;Hello, &quot;, end=&quot;BREAK&quot;)
+print(&quot;World!&quot;)
+# Hello, BREAKWorld!
+</code></pre>
+</div></div>
+<p>If you want more control over the output, you can use <code>sys.stdout.write</code>:</p>
+<pre><code>import sys
+
+sys.stdout.write(&quot;Hello, &quot;)
+sys.stdout.write(&quot;World!&quot;)
+# Hello, World!
+</code></pre>
+
+</div><h2 class="_title">Read from stdin</h2><div class="_content"><p>Python programs can read from <a href="https://en.wikipedia.org/wiki/Pipeline_(Unix)" rel="nofollow">unix pipelines</a>. Here is a simple example how to read from <a href="https://docs.python.org/2/library/sys.html#sys.stdin" rel="nofollow"><code>stdin</code></a>:</p>
+<pre><code>import sys
+
+for line in sys.stdin:
+    print(line)
+</code></pre>
+<p>Be aware that <code>sys.stdin</code> is a stream. It means that the for-loop will only terminate when the stream has ended.</p>
+<p>You can now pipe the output of another program into your python program as follows:</p>
+<pre><code>$ cat myfile | python myprogram.py
+</code></pre>
+<p>In this example <code>cat myfile</code> can be any unix command that outputs to <code>stdout</code>.</p>
+<p>Alternatively, using the <a href="https://docs.python.org/2/library/fileinput.html" rel="nofollow">fileinput module</a> can come in handy:</p>
+<pre><code>import fileinput
+for line in fileinput.input():
+    process(line)
+</code></pre>
+
+</div><h2 class="_title">Input from a File</h2><div class="_content"><p>Input can also be read from files. Files can be opened using the built-in function <code>open</code>. Using a <a class='doc-link' href="http://stackoverflow.com/documentation/python/928/context-managers-with-statement#t=201612062300080479662"><code>with &lt;command&gt; as &lt;name&gt;</code></a> syntax (called a 'Context Manager') makes using <code>open</code> and getting a handle for the file super easy:</p>
+<pre><code>with open('somefile.txt', 'r') as fileobj:
+    # write code here using fileobj
+</code></pre>
+<p>This ensures that when code execution leaves the block the file is automatically closed.</p>
+<p>Files can be opened in different modes. In the above example the file is opened as read-only. To open an existing file for reading only use <code>r</code>. If you want to read that file as bytes use <code>rb</code>. To append data to an existing file use <code>a</code>. Use <code>w</code> to create a file or overwrite any existing files of the same name. You can use <code>r+</code> to open a file for both reading and writing. The first argument of <code>open()</code> is the filename, the second is the mode. If mode is left blank, it will default to <code>r</code>.</p>
+<pre><code># let's create an example file:
+with open('shoppinglist.txt', 'w') as fileobj:
+    fileobj.write('tomato\npasta\ngarlic')
+
+with open('shoppinglist.txt', 'r') as fileobj:
+    # this method makes a list where each line 
+    # of the file is an element in the list
+    lines = fileobj.readlines()
+
+print(lines)
+# ['tomato\n', 'pasta\n', 'garlic']
+
+with open('shoppinglist.txt', 'r') as fileobj:
+    # here we read the whole content into one string:
+    content = fileobj.read()
+    # get a list of lines, just like int the previous example:
+    lines = content.split('\n')
+
+print(lines)
+# ['tomato', 'pasta', 'garlic']
+</code></pre>
+<p>If the size of the file is tiny, it is safe to read the whole file contents into memory. If the file is very large it is often better to read line-by-line or by chunks, and process the input in the same loop. To do that:</p>
+<pre><code>with open('shoppinglist.txt', 'r') as fileobj:
+    # this method reads line by line:
+    lines = []
+    for line in fileobj:
+        lines.append(line.strip())
+</code></pre>
+<p>When reading files, be aware of the operating system-specific line-break characters. Although <code>for line in fileobj</code> automatically strips them off, it is always safe to call <code>strip()</code> on the lines read, as it is shown above.</p>
+<p>Opened files (<code>fileobj</code> in the above examples) always point to a specific location in the file. When they are first opened the file handle points to the very beginning of the file, which is the position <code>0</code>. The file handle can display it's  current position with <code>tell</code>:</p>
+<pre><code>fileobj = open('shoppinglist.txt', 'r')
+pos = fileobj.tell()
+print('We are at %u.' % pos) # We are at 0.
+</code></pre>
+<p>Upon reading all the content, the file handler's position will be pointed at the end of the file:</p>
+<pre><code>content = fileobj.read()
+end = fileobj.tell()
+print('This file was %u characters long.' % end)
+# This file was 22 characters long.
+fileobj.close()
+</code></pre>
+<p>The file handler position can be set to whatever is needed:</p>
+<pre><code>fileobj = open('shoppinglist.txt', 'r')
+fileobj.seek(7)
+pos = fileobj.tell()
+print('We are at character #%u.' % pos)
+</code></pre>
+<p>You can also read any length from the file content during a given call. To do this pass an argument for <code>read()</code>. When <code>read()</code> is  called with no argument it will read until the end of the file. If you pass an argument it will read that number of bytes or characters, depending on the mode (<code>rb</code> and <code>r</code> respectively):</p>
+<pre><code># reads the next 4 characters 
+# starting at the current position
+next4 = fileobj.read(4)
+# what we got?
+print(next4) # 'cucu'
+# where we are now?
+pos = fileobj.tell()
+print('We are at %u.' % pos) # We are at 11, as we was at 7, and read 4 chars.
+
+fileobj.close()
+</code></pre>
+<p>To demonstrate the difference between characters and bytes:</p>
+<pre><code>with open('shoppinglist.txt', 'r') as fileobj:
+    print(type(fileobj.read())) # &lt;class 'str'&gt;
+
+with open('shoppinglist.txt', 'rb') as fileobj:
+    print(type(fileobj.read())) # &lt;class 'bytes'&gt;
+</code></pre>
+
+</div></div>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">python</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">programs</string>
+    <string name="menu_slideshow">practice</string>
+    <string name="menu_tools">Test</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_send">Send</string>
+    <string name="title_activity_data">DataActivity</string>
+    <string name="title_activity_advancedtutotials">advancedtutotials</string>
+    <string name="title_activity_advance_data">advanceDataActivity</string>
+    <string name="title_activity_programs">programs</string>
+    <string name="title_activity_program_data">programDataActivity</string>
+    <string name="title_activity_datastructure">datastructure</string>
+    <string name="title_activity_pragram_data">pragramDataActivity</string>
+</resources>
